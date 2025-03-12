@@ -17,9 +17,9 @@ public class Controleur
 
 	private Serveur serveur;
 
-	public Controleur(String nomFichier, int nbCol, int nbLig, int port)
+	public Controleur(String nomFichier, int nbLig, int nbCol, int port)
 	{
-		this.serveur = new Serveur(nomFichier, nbCol, nbLig, port, this);
+		this.serveur = new Serveur(nomFichier, nbLig, nbCol, port, this);
 
 		this.frameImage = new FrameImage(this, serveur.getGrilleImages());
 

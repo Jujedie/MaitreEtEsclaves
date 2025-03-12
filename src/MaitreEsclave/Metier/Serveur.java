@@ -18,7 +18,7 @@ public class Serveur extends Thread
 	private DatagramSocket      serverSocket;
 	private Controleur            controleur;
 
-	public Serveur(String cheminImage,int nbColonnes, int nbLignes, int port, Controleur ctrl)
+	public Serveur(String cheminImage, int nbLignes, int nbColonnes, int port, Controleur ctrl)
 	{
 		this.controleur = ctrl;
 
