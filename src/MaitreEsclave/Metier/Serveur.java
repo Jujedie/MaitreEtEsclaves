@@ -1,14 +1,13 @@
 package MaitreEsclave.Metier;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-
-import java.io.ByteArrayOutputStream;
 
 public class Serveur
 {
@@ -49,6 +48,20 @@ public class Serveur
 		}
 	}
 
+	
+	public Boolean[][] getGrilleImagesComplete() {
+		return grilleImagesComplete;
+	}
+
+	public BufferedImage[][] getGrilleImages() {
+		return grilleImages;
+	}
+
+	public DatagramSocket getServerSocket() {
+		return serverSocket;
+	}
+
+	
 	public static byte[] BufferedImageToByteArray(BufferedImage buffer)
 	{
 		byte[] bytes = null;
@@ -66,4 +79,6 @@ public class Serveur
 
 		return bytes;
 	}
+
+    
 }
