@@ -11,7 +11,7 @@ import java.net.InetAddress;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-public class Serveur
+public class Serveur extends Thread
 {
 	private Boolean[][] grilleImagesComplete;
 	private BufferedImage[][]   grilleImages;
@@ -51,7 +51,10 @@ public class Serveur
 				this.grilleImagesComplete[i][j] = false;
 			}
 		}
+	}
 
+	public void run()
+	{
 		System.out.println("Serveur initialisé");
 
 		while(!this.isGrilleImagesComplete()){
@@ -63,7 +66,6 @@ public class Serveur
 		}
 	}
 
-	
 	public Boolean[][] getGrilleImagesComplete() {
 		return grilleImagesComplete;
 	}
