@@ -4,8 +4,9 @@ import java.awt.image.BufferedImage;
 
 public class Client
 {
-	private BufferedImage image;
-	
+	private BufferedImage   image;
+	private DatagramSocket socket;
+	private InetAddress   address;
 
 	public Client()
 	{

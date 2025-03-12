@@ -19,7 +19,7 @@ public class Serveur
 		BufferedImage image = null;
 		try
 		{
-			this.serverSocket = new DatagramSocket(port,InetAddress.getByName());
+			this.serverSocket = new DatagramSocket(port,InetAddress.getLocalHost());
 
 			image = ImageIO.read(new File(cheminImage));
 			if (image == null)
