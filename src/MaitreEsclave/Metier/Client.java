@@ -10,11 +10,17 @@ public class Client
 	private BufferedImage   image;
 	private DatagramSocket socket;
 	private InetAddress   address;
+	private int 		     port;
 
-	public Client()
+	public Client(InetAddress address, int port)
 	{
-
+		this.image   = null;
+		this.socket  = new DatagramSocket();
+		this.address = address;
+		this.port    = port;
 	}
+
+
 	private void invertColors()
 	{
 		for (int y = 0; y < image.getHeight(); y++)
@@ -50,5 +56,23 @@ public class Client
 				image.setRGB(x, y, newRgb);
 			}
 		}
+	}
+
+
+	public static byte[] BufferedImageToByteArray(BufferedImage buffer)
+	{
+		byte[] bytes = null;
+		try
+		{
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ImageIO.write(buffer, "jpg", baos);
+			bytes = baos.toByteArray();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		return bytes;
 	}
 }

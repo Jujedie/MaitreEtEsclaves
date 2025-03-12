@@ -77,7 +77,5 @@ public class Serveur
 		}
 
 		return bytes;
-	}
-
-    
+	} 
 }
