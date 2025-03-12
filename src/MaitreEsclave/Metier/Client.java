@@ -4,7 +4,14 @@ import java.awt.image.BufferedImage;
 
 public class Client
 {
-	private void invertColors(BufferedImage image)
+	private BufferedImage image;
+	
+
+	public Client()
+	{
+
+	}
+	private void invertColors()
 	{
 		for (int y = 0; y < image.getHeight(); y++)
 		{
