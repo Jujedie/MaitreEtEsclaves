@@ -68,9 +68,8 @@ public class Serveur
 		try
 		{
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-			boolean foundWriter = ImageIO.write(buffer, "jpg", baos);
-			bytes               = baos.toByteArray();
+			ImageIO.write(buffer, "jpg", baos);
+			bytes = baos.toByteArray();
 		}
 		catch (IOException e)
 		{
