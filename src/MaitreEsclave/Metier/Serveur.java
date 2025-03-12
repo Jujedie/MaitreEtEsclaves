@@ -57,7 +57,7 @@ public class Serveur
 		while(!this.isGrilleImagesComplete()){
 			DatagramPacket msg = new DatagramPacket(new byte[512], 512);
 			try {
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
