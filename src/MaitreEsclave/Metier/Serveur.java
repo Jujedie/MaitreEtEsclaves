@@ -1,14 +1,13 @@
 package MaitreEsclave.Metier;
 
+import MaitreEsclave.Controleur;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-
-import java.net.DatagramSocket;
 import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
-
-import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -17,9 +16,12 @@ public class Serveur
 	private Boolean[][] grilleImagesComplete;
 	private BufferedImage[][]   grilleImages;
 	private DatagramSocket      serverSocket;
+	private Controleur            controleur;
 
-	public Serveur(String cheminImage,int nbColonnes, int nbLignes, int port)
+	public Serveur(String cheminImage,int nbColonnes, int nbLignes, int port, Controleur ctrl)
 	{
+		this.controleur = ctrl;
+
 		BufferedImage image = null;
 		try
 		{
@@ -54,7 +56,10 @@ public class Serveur
 
 		while(!this.isGrilleImagesComplete()){
 			DatagramPacket msg = new DatagramPacket(new byte[512], 512);
-			this.serverSocket.receive(msg);
+			try {
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
