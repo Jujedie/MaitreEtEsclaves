@@ -2,6 +2,9 @@ package MaitreEsclave.Metier;
 
 import java.awt.image.BufferedImage;
 
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+
 public class Client
 {
 	private BufferedImage   image;
