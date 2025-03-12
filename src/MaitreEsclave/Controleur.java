@@ -19,7 +19,7 @@ public class Controleur
 
 	public Controleur(String nomFichier, int nbCol, int nbLig, int port)
 	{
-		new Serveur(nomFichier, nbCol, nbLig, port, this);
+		this.serveur = new Serveur(nomFichier, nbCol, nbLig, port, this);
 
 		this.frameImage = new FrameImage(this, serveur.getGrilleImages());
 
