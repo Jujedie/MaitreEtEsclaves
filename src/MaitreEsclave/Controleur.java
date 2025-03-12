@@ -23,11 +23,6 @@ public class Controleur
 
 		this.frameImage = new FrameImage(this, serveur.getGrilleImages());
 
-		if (!nomFichier.endsWith(".png") || !nomFichier.endsWith(".jpg"))
-		{
-			nomFichier += ".png";
-		}
-
 		try
 		{
 			// Lit le fichier et le transforme en image
@@ -71,7 +66,7 @@ public class Controleur
 		{
 			String nomFichier = args[0];
 
-			if (nomFichier.contains(".") && !nomFichier.endsWith(".png") || !nomFichier.endsWith(".jpg"))
+			if (!nomFichier.endsWith(".png") && !nomFichier.endsWith(".jpg"))
 			{
 				System.out.println("Fichier non supporté");
 			}
