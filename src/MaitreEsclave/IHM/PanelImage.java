@@ -29,7 +29,8 @@ public class PanelImage extends JPanel implements ActionListener
 
 		this.setLayout(new BorderLayout());
 
-		this.panelImage   = new JPanel(new GridLayout(1, 4, 20, 20));
+		this.majImage();
+
 		this.panelBoutons = new JPanel(new GridLayout(1, 4, 20, 20));
 
 		this.btnLancer  = new JButton("Lancer");
@@ -45,8 +46,6 @@ public class PanelImage extends JPanel implements ActionListener
 
 		this.btnLancer.addActionListener(this);
 		this.btnQuitter.addActionListener(this);
-
-		this.majImage();
 	}
 
 	public void actionPerformed(ActionEvent e)
