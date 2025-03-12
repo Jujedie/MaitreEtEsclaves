@@ -43,9 +43,9 @@ public class Serveur extends Thread
 		int largeurImage = imageIcon.getIconWidth() / nbColonnes;
 		int hauteurImage = imageIcon.getIconHeight() / nbLignes;
 
-		for (int i = 0; i < nbColonnes; i++)
+		for (int i = 0; i < nbLignes ; i++)
 		{
-			for (int j = 0; j < nbLignes; j++)
+			for (int j = 0; j < nbColonnes ; j++)
 			{
 				this.grilleImages[i][j] = image.getSubimage(i * largeurImage, j * hauteurImage, largeurImage, hauteurImage);
 				this.grilleImagesComplete[i][j] = false;
