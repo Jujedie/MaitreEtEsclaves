@@ -1,3 +1,6 @@
-public class Serveur {
+package MaitreEsclave.Metier;
+
+public class Serveur
+{
 	
 }
