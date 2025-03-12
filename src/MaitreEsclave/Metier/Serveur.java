@@ -1,7 +1,15 @@
 package MaitreEsclave.Metier;
 
+import javax.swing.ImageIcon;
+
 public class Serveur
 {
-	private bool[][] grilleImagesComplété;
-	private 
+	private Boolean[][] grilleImagesComplété;
+	private ImageIcon[][]       grilleImages;
+
+	public Serveur(String cheminImage,int nbColonnes, int nbLignes)
+	{
+		this.grilleImagesComplété = new Boolean[nbColonnes][nbLignes];
+		this.grilleImages = new ImageIcon[nbColonnes][nbLignes];
+	}
 }
