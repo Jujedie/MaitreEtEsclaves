@@ -1,6 +1,77 @@
 package MaitreEsclave.IHM;
 
-public class PanelImage
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+
+import java.awt.image.BufferedImage;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class PanelImage extends JPanel implements ActionListener
 {
-	
+	private JPanel panelImage;
+	private JPanel panelBoutons;
+
+	private JButton btnLancer;
+	private JButton btnQuitter;
+
+	private BufferedImage[][] tabImages;
+
+	public PanelImage(FrameImage frameImage, BufferedImage[][] tabImages)
+	{
+		this.tabImages = tabImages;
+
+		this.setLayout(new BorderLayout());
+
+		this.panelImage   = new JPanel(new GridLayout(1, 4, 20, 20));
+		this.panelBoutons = new JPanel(new GridLayout(1, 4, 20, 20));
+
+		this.btnLancer  = new JButton("Lancer");
+		this.btnQuitter = new JButton("Quitter");
+
+		this.panelBoutons.add(new JLabel());
+		this.panelBoutons.add(this.btnLancer);
+		this.panelBoutons.add(this.btnQuitter);
+		this.panelBoutons.add(new JLabel());
+
+		this.add(this.panelImage, BorderLayout.CENTER);
+		this.add(this.panelBoutons, BorderLayout.SOUTH);
+
+		this.btnLancer.addActionListener(this);
+		this.btnQuitter.addActionListener(this);
+
+		this.majImage();
+	}
+
+	public void actionPerformed(ActionEvent e)
+	{
+		if (e.getSource() == this.btnLancer)
+		{
+			// Lancement de la decentralisation des processus
+		}
+
+		if (e.getSource() == this.btnQuitter)
+		{
+			System.exit(0);
+		}
+	}
+
+	public void majImage()
+	{
+		this.panelImage = new JPanel(new GridLayout(this.tabImages.length, this.tabImages[0].length, 5, 5));
+
+		for (int lig = 0; lig < this.tabImages.length; lig++)
+		{
+			for (int col = 0; col < this.tabImages[0].length; col++)
+			{
+				this.panelImage.add(new JLabel(new ImageIcon(this.tabImages[lig][col])));
+			}
+		}
+	}
 }
