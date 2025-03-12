@@ -47,7 +47,7 @@ public class Serveur extends Thread
 		{
 			for (int j = 0; j < nbColonnes ; j++)
 			{
-				this.grilleImages[i][j] = image.getSubimage(i * largeurImage, j * hauteurImage, largeurImage, hauteurImage);
+				this.grilleImages[i][j] = image.getSubimage(j * largeurImage, i * hauteurImage, largeurImage, hauteurImage);
 				this.grilleImagesComplete[i][j] = false;
 			}
 		}
