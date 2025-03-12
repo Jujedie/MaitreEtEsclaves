@@ -15,9 +15,17 @@ public class Client
 	public Client(InetAddress address, int port)
 	{
 		this.image   = null;
-		this.socket  = new DatagramSocket();
 		this.address = address;
 		this.port    = port;
+
+		try
+		{
+			this.socket = new DatagramSocket();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 
