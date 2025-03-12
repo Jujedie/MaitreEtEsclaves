@@ -8,6 +8,8 @@ import java.net.InetAddress;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
+import java.io.ByteArrayOutputStream;
+
 public class Serveur
 {
 	private Boolean[][] grilleImagesComplete;
@@ -45,5 +47,23 @@ public class Serveur
 				this.grilleImagesComplete[i][j] = false;
 			}
 		}
+	}
+
+	public static byte[] BufferedImageToByteArray(BufferedImage buffer)
+	{
+		byte[] bytes = null;
+		try
+		{
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+			boolean foundWriter = ImageIO.write(buffer, "jpg", baos);
+			bytes               = baos.toByteArray();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		return bytes;
 	}
 }
