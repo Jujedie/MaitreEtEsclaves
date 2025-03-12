@@ -1,26 +1,35 @@
 package MaitreEsclave;
 
-import java.awt.Graphics2D;
+import MaitreEsclave.Metier.Serveur;
+
+import MaitreEsclave.IHM.FrameImage;
+
 import java.awt.image.BufferedImage;
-import java.io.File;
+
 import java.io.FileInputStream;
-import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
 public class Controleur
 {
-        
-    public Controleur(String nomFichier, int nbCol, int nbLig) 
+	@SuppressWarnings("unused")
+	private FrameImage frameImage;
+
+	private Serveur serveur;
+
+	public Controleur(String nomFichier, int nbCol, int nbLig, int port)
 	{
+		new Serveur(nomFichier, nbCol, nbLig, port, this);
+
+		this.frameImage = new FrameImage(this, serveur.getGrilleImages());
 
 		if (!nomFichier.endsWith(".png") || !nomFichier.endsWith(".jpg"))
 		{
 			nomFichier += ".png";
 		}
 
-		try {
-				
+		try
+		{
 			// Lit le fichier et le transforme en image
 			FileInputStream fichier = new FileInputStream("./" + nomFichier);
 			BufferedImage image = ImageIO.read(fichier);
@@ -31,8 +40,7 @@ public class Controleur
 			// Division de l'image en sous-images égales
 			int largeurSousImage = image.getWidth() / nbCol;
 			int hauteurSousImage = image.getHeight() / nbLig;
-			
-			
+
 			// Itération des lignes et colonnes pour chaque sous-image
 			for (int cpt1 = 0; cpt1 < nbLig; cpt1++)
 			{
@@ -44,32 +52,33 @@ public class Controleur
 			}
 
 			//TODO: Utilisation des sous-images
+		}
 
-
-
-		} catch (Exception e) {
+		catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 	}
 
 	public static void main(String[] args) 
 	{
-		if (args.length != 3)
+		if (args.length != 4)
 		{
-			System.out.println("Erreur de format : java Controleur nomImage nombreColonnes nombreLignes");
+			System.out.println("Erreur de format : java Controleur nomImage nombreColonnes nombreLignes port");
 		}
+
 		else
 		{
 			String nomFichier = args[0];
-			
-			if (nomFichier.contains(".") && !nomFichier.endsWith(".png") || !nomFichier.endsWith(".jpg"))
-				System.out.println("Fichier non supporté");
-			else
-				new Controleur(nomFichier, Integer.valueOf(args[1]), Integer.valueOf(args[2]));
-		}
-		
-		
-	}
 
-	
+			if (nomFichier.contains(".") && !nomFichier.endsWith(".png") || !nomFichier.endsWith(".jpg"))
+			{
+				System.out.println("Fichier non supporté");
+			}
+			else
+			{
+				new Controleur(nomFichier, Integer.valueOf(args[1]), Integer.valueOf(args[2]), Integer.valueOf(args[3]));
+			}
+		}
+	}
 }
