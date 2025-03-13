@@ -58,8 +58,16 @@ public class Serveur extends Thread
 		System.out.println("Serveur initialisé");
 
 		while(!this.isGrilleImagesComplete()){
-			DatagramPacket msg = new DatagramPacket(new byte[512], 512);
 			try {
+				// récupérer les coordonnées de l'image à envoyer
+
+				// si prochain message est un message "awaiting task"
+
+					// alors donner données et tache pour le client ET marquer l'image comme complète dans grilleImagesComplete
+
+				// sinon traiterImage reçu et modifier la grilleImages
+
+					// Mettre à jour IHM
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
