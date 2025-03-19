@@ -1,18 +1,15 @@
 package MaitreEsclave.IHM;
 
 import MaitreEsclave.Controleur;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-
-import java.awt.image.BufferedImage;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class PanelImage extends JPanel implements ActionListener
 {
@@ -76,5 +73,8 @@ public class PanelImage extends JPanel implements ActionListener
 				this.panelImage.add(new JLabel(new ImageIcon(this.tabImages[lig][col])));
 			}
 		}
+
+		this.repaint();
+		this.revalidate();
 	}
 }

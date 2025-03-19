@@ -70,8 +70,8 @@ public class Serveur extends Thread
 		{
 			try
 			{
-				System.out.println("En attente de paquet de données");
-				
+				System.out.println("\n\nEn attente de paquet de données\n");
+
 				byte[] receiveData = new byte[2048];
 				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				serverSocket.receive(receivePacket);
@@ -79,7 +79,7 @@ public class Serveur extends Thread
 				// récupérer les coordonnées de l'image à envoyer
 				BufferedImage image = this.getNextImage();
 
-				System.out.println("Réception du paquet de données");
+				System.out.println("Réception du paquet de données\n");
 				(new Service(this, receivePacket, image)).start();
 			}
 			catch (Exception e)
@@ -87,6 +87,8 @@ public class Serveur extends Thread
 				e.printStackTrace();
 			}
 		}
+
+		System.out.println("\nServeur terminé\n");
 	}
 
 

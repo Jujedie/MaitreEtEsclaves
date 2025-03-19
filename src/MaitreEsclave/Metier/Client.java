@@ -41,14 +41,14 @@ public class Client extends Thread
 			while (true)
 			{
 				// Envoie "awaiting task" au server
-				System.out.println("En attente de tache");
+				System.out.println("\n\nEnvoie de la requête au serveur | " + this.address + ":" + this.port+"\n");
 
 				byte[] sendData = "awaiting task".getBytes();
 				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, this.address, this.port);
 				this.socket.send(sendPacket);
 
 				//Reçoi la tache envoyé par le serveur server
-				System.out.println("Réception de la tache");
+				System.out.println("Réception de la tache\n");
 
 				byte[] receiveData = new byte[1024];
 				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
@@ -56,7 +56,7 @@ public class Client extends Thread
 				String task = new String(receivePacket.getData(), 0, receivePacket.getLength());
 
 				// Séparer la tache des coordonnée du BufferedImage
-				System.out.println("Tache reçue : " + task);
+				System.out.println("Tache reçue : " + task+"\n");
 
 				String[] taskParts = task.split(" ");
 				String taskType = taskParts[0];
@@ -64,7 +64,7 @@ public class Client extends Thread
 				int y = Integer.parseInt(taskParts[2]);
 
 				// Recevoir la taille de l'image en bits
-				System.out.println("Réception de la taille de l'image");
+				System.out.println("Réception de la taille de l'image\n");
 
 				byte[] sizeData = new byte[512];
 				receivePacket = new DatagramPacket(sizeData, sizeData.length);
@@ -72,7 +72,7 @@ public class Client extends Thread
 				int imageSize = Integer.parseInt(new String(receivePacket.getData(), 0, receivePacket.getLength()));
 
 				// Recevoir l'image
-				System.out.println("Réception de l'image");
+				System.out.println("Réception de l'image\n");
 
 				receiveData = new byte[imageSize];
 				receivePacket = new DatagramPacket(receiveData, receiveData.length);
@@ -92,7 +92,7 @@ public class Client extends Thread
 				}
 
 				// Convertis l'image en tableau de bits
-				System.out.println("Envoie de l'image modifiée au serveur");
+				System.out.println("\nEnvoie de l'image modifiée au serveur\n");
 
 				byte[] resultData = BufferedImageToByteArray(this.image);
 
@@ -101,7 +101,7 @@ public class Client extends Thread
 				this.socket.send(sendPacket);
 
 				// attend de recevoir le port libre
-				System.out.println("Réception du port libre");
+				System.out.println("Réception du port libre \n");
 
 				receiveData = new byte[512];
 				receivePacket = new DatagramPacket(receiveData, receiveData.length);
@@ -109,9 +109,11 @@ public class Client extends Thread
 				socket.receive(receivePacket);
 				int portLibre = Integer.parseInt(new String(receivePacket.getData(), 0, receivePacket.getLength()));
 
+				System.out.println("Port libre : " + portLibre+"\n");
+
 				// Envoie l'image modifié au serveur
-				System.out.println("Envoie de l'image modifiée au serveur sur le port " + portLibre);
-				
+				System.out.println("Envoie de l'image modifiée au serveur sur le port " + portLibre+"\n");
+
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				baos.write(resultData);
 
@@ -119,6 +121,9 @@ public class Client extends Thread
 				sendData = baos.toByteArray();
 				sendPacket = new DatagramPacket(sendData, sendData.length, this.address, portLibre);
 				this.socket.send(sendPacket);
+
+				// Attendre 1 seconde avant de demander une nouvelle tâche
+				Thread.sleep(100);
 			}
 		}
 		catch (Exception e)
