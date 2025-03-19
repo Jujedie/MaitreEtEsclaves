@@ -18,7 +18,6 @@ public class PanelImage extends JPanel implements ActionListener
 	private JPanel panelImage;
 	private JPanel panelBoutons;
 
-	private JButton btnLancer;
 	private JButton btnQuitter;
 
 	private BufferedImage[][] tabImages;
@@ -31,30 +30,22 @@ public class PanelImage extends JPanel implements ActionListener
 
 		this.majImage();
 
-		this.panelBoutons = new JPanel(new GridLayout(1, 4, 20, 20));
+		this.panelBoutons = new JPanel(new GridLayout(1, 3));
 
-		this.btnLancer  = new JButton("Lancer");
 		this.btnQuitter = new JButton("Quitter");
 
 		this.panelBoutons.add(new JLabel());
-		this.panelBoutons.add(this.btnLancer);
 		this.panelBoutons.add(this.btnQuitter);
 		this.panelBoutons.add(new JLabel());
 
 		this.add(this.panelImage, BorderLayout.CENTER);
 		this.add(this.panelBoutons, BorderLayout.SOUTH);
 
-		this.btnLancer.addActionListener(this);
 		this.btnQuitter.addActionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent e)
 	{
-		if (e.getSource() == this.btnLancer)
-		{
-			// Lancement de la decentralisation des processus
-		}
-
 		if (e.getSource() == this.btnQuitter)
 		{
 			System.exit(0);
