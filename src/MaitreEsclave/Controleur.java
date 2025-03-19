@@ -18,7 +18,7 @@ public class Controleur
 		this.frameImage = new FrameImage(this, serveur.getGrilleImages());
 	}
 
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
 		if (args.length != 4)
 		{
