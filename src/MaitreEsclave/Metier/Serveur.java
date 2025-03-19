@@ -1,20 +1,15 @@
 package MaitreEsclave.Metier;
 
 import MaitreEsclave.Controleur;
-
-import javax.swing.ImageIcon;
-
 import java.awt.image.BufferedImage;
-
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class Serveur extends Thread
 {
@@ -70,14 +65,34 @@ public class Serveur extends Thread
 			try
 			{
 				// récupérer les coordonnées de l'image à envoyer
+				BufferedImage image = this.getNextImage();
+				
 
-				// si prochain message est un message "awaiting task"
+				byte[] receiveData = new byte[4096];
+				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
+				serverSocket.receive(receivePacket);
+				String message = new String(receivePacket.getData(), 0, receivePacket.getLength());
 
-					// alors donner données et tache pour le client ET marquer l'image comme complète dans grilleImagesComplete
-
-				// sinon traiterImage reçu et modifier la grilleImages
-
-					// Mettre à jour IHM
+				if (message.equals("awaiting task")) {
+					byte[] imageData = BufferedImageToByteArray(image);
+					DatagramPacket sendPacket = new DatagramPacket(imageData, imageData.length, receivePacket.getAddress(), receivePacket.getPort());
+					System.out.println("Taille de l'image envoyée : " + imageData.length);
+					serverSocket.send(sendPacket);
+					
+					for (int i = 0; i < grilleImagesComplete.length; i++) {
+						for (int j = 0; j < grilleImagesComplete[0].length; j++) {
+							if (grilleImages[i][j] == image) {
+								grilleImagesComplete[i][j] = true;
+								break;
+							}
+						}
+					}
+				} 
+				else 
+				{
+					// Process received image and update grilleImages
+					// Update IHM
+				}
 			}
 			catch (Exception e)
 			{
@@ -132,5 +147,21 @@ public class Serveur extends Thread
 		}
 
 		return true;
+	}
+
+	public BufferedImage getNextImage()
+	{
+		for (int i = 0; i < this.grilleImagesComplete.length; i++)
+		{
+			for (int j = 0; j < this.grilleImagesComplete[0].length; j++)
+			{
+				if (!this.grilleImagesComplete[i][j])
+				{
+					return this.grilleImages[i][j];
+				}
+			}
+		}
+
+		return null;
 	}
 }
