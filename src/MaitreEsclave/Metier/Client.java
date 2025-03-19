@@ -92,7 +92,7 @@ public class Client extends Thread
 
 				receiveData = new byte[512];
 				receivePacket = new DatagramPacket(receiveData, receiveData.length);
-				
+
 				socket.receive(receivePacket);
 				int portLibre = Integer.parseInt(new String(receivePacket.getData(), 0, receivePacket.getLength()));
 
@@ -175,9 +175,9 @@ public class Client extends Thread
 			System.out.println("Usage: java Client <address> <port>");
 			System.exit(1);
 		}
-		if (Integer.parseInt(args[1]) < 1024 || Integer.parseInt(args[1]) > 65535)
+		if ((Integer.parseInt(args[1]) < 1024 || Integer.parseInt(args[1]) > 65535) && Integer.parseInt(args[1]) != 5000)
 		{
-			System.out.println("Le numéro du port doit être entre 1024 et 65535");
+			System.out.println("Le numéro du port doit être entre 1024 et 65535 et différent de 5000");
 			System.exit(1);
 		}
 		

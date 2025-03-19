@@ -25,14 +25,6 @@ public class Service extends Thread {
 	@Override
 	public void run() {
 		try {
-			// si prochain message est un message "awaiting task"
-
-			// alors donner données et tache pour le client ET marquer l'image comme
-			// complète dans grilleImagesComplete
-
-			// sinon traiterImage reçu et modifier la grilleImages
-
-			// Mettre à jour IHM
 
 			String message = new String(data.getData(), 0, data.getLength());
 

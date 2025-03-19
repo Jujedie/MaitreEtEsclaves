@@ -42,9 +42,17 @@ public class Controleur
 			{
 				System.out.println("Fichier non supporté");
 			}
-			else
+			else 
 			{
-				new Controleur(nomFichier, Integer.valueOf(args[1]), Integer.valueOf(args[2]), Integer.valueOf(args[3]));
+				if ((Integer.parseInt(args[1]) < 1024 || Integer.parseInt(args[1]) > 65535) && Integer.parseInt(args[1]) != 5000)
+				{
+					System.out.println("Le numéro du port doit être entre 1024 et 65535 et différent de 5000");
+					System.exit(1);
+				} 
+				else
+				{
+					new Controleur(nomFichier, Integer.valueOf(args[1]), Integer.valueOf(args[2]), Integer.valueOf(args[3]));
+				}
 			}
 		}
 	}
