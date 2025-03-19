@@ -4,12 +4,6 @@ import MaitreEsclave.Metier.Serveur;
 
 import MaitreEsclave.IHM.FrameImage;
 
-import java.awt.image.BufferedImage;
-
-import java.io.FileInputStream;
-
-import javax.imageio.ImageIO;
-
 public class Controleur
 {
 	@SuppressWarnings("unused")
@@ -22,9 +16,6 @@ public class Controleur
 		this.serveur = new Serveur(nomFichier, nbLig, nbCol, port, this);
 
 		this.frameImage = new FrameImage(this, serveur.getGrilleImages());
-
-		
-
 	}
 
 	public static void main(String[] args) 
@@ -48,6 +39,4 @@ public class Controleur
 			}
 		}
 	}
-
-	
 }
