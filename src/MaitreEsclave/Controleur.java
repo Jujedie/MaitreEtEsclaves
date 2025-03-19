@@ -1,8 +1,9 @@
 package MaitreEsclave;
 
 import MaitreEsclave.Metier.Serveur;
-
 import MaitreEsclave.IHM.FrameImage;
+
+import java.awt.image.BufferedImage;
 
 public class Controleur
 {
@@ -16,6 +17,16 @@ public class Controleur
 		this.serveur = new Serveur(nomFichier, nbLig, nbCol, port, this);
 
 		this.frameImage = new FrameImage(this, serveur.getGrilleImages());
+	}
+
+	public void majImage()
+	{
+		this.frameImage.getPanel().majImage();;
+	}
+
+	public void play()
+	{
+		// Launch the image changer
 	}
 
 	public static void main(String[] args)
