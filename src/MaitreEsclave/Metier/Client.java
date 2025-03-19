@@ -78,7 +78,7 @@ public class Client extends Thread
 				{
 					invertColors();
 				}
-				else if (taskType.equals("permute"))
+				else
 				{
 					permuteRedBlueGreen();
 				}

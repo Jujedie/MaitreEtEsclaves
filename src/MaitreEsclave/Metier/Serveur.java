@@ -68,31 +68,11 @@ public class Serveur extends Thread
 				BufferedImage image = this.getNextImage();
 				
 
-				byte[] receiveData = new byte[4096];
+				byte[] receiveData = new byte[2048];
 				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				serverSocket.receive(receivePacket);
-				String message = new String(receivePacket.getData(), 0, receivePacket.getLength());
-
-				if (message.equals("awaiting task")) {
-					byte[] imageData = BufferedImageToByteArray(image);
-					DatagramPacket sendPacket = new DatagramPacket(imageData, imageData.length, receivePacket.getAddress(), receivePacket.getPort());
-					System.out.println("Taille de l'image envoyée : " + imageData.length);
-					serverSocket.send(sendPacket);
 					
-					for (int i = 0; i < grilleImagesComplete.length; i++) {
-						for (int j = 0; j < grilleImagesComplete[0].length; j++) {
-							if (grilleImages[i][j] == image) {
-								grilleImagesComplete[i][j] = true;
-								break;
-							}
-						}
-					}
-				} 
-				else 
-				{
-					// Process received image and update grilleImages
-					// Update IHM
-				}
+				(new Service(this, receivePacket, image)).run();;
 			}
 			catch (Exception e)
 			{
@@ -115,6 +95,7 @@ public class Serveur extends Thread
 	{
 		return serverSocket;
 	}
+
 
 	public static byte[] BufferedImageToByteArray(BufferedImage buffer)
 	{
@@ -149,6 +130,7 @@ public class Serveur extends Thread
 		return true;
 	}
 
+
 	public BufferedImage getNextImage()
 	{
 		for (int i = 0; i < this.grilleImagesComplete.length; i++)
@@ -163,5 +145,24 @@ public class Serveur extends Thread
 		}
 
 		return null;
+	}
+	public int[] getImageCoordinates(BufferedImage image)
+	{
+		for (int i = 0; i < this.grilleImagesComplete.length; i++)
+		{
+			for (int j = 0; j < this.grilleImagesComplete[0].length; j++)
+			{
+				if (this.grilleImages[i][j] == image)
+				{
+					return new int[]{i, j};
+				}
+			}
+		}
+
+		return null;
+	}
+	public void setGrilleImagesComplete(int i, int j)
+	{
+		this.grilleImagesComplete[i][j] = true;
 	}
 }
