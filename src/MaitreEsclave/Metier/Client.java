@@ -41,29 +41,39 @@ public class Client extends Thread
 			while (true)
 			{
 				// Envoie "awaiting task" au server
+				System.out.println("En attente de tache");
+
 				byte[] sendData = "awaiting task".getBytes();
 				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, this.address, this.port);
 				this.socket.send(sendPacket);
 
 				//Reçoi la tache envoyé par le serveur server
+				System.out.println("Réception de la tache");
+
 				byte[] receiveData = new byte[1024];
 				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				socket.receive(receivePacket);
 				String task = new String(receivePacket.getData(), 0, receivePacket.getLength());
 
 				// Séparer la tache des coordonnée du BufferedImage
+				System.out.println("Tache reçue : " + task);
+
 				String[] taskParts = task.split(" ");
 				String taskType = taskParts[0];
 				int x = Integer.parseInt(taskParts[1]);
 				int y = Integer.parseInt(taskParts[2]);
 
 				// Recevoir la taille de l'image en bits
+				System.out.println("Réception de la taille de l'image");
+
 				byte[] sizeData = new byte[512];
 				receivePacket = new DatagramPacket(sizeData, sizeData.length);
 				socket.receive(receivePacket);
 				int imageSize = Integer.parseInt(new String(receivePacket.getData(), 0, receivePacket.getLength()));
 
 				// Recevoir l'image
+				System.out.println("Réception de l'image");
+
 				receiveData = new byte[imageSize];
 				receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				socket.receive(receivePacket);
@@ -82,6 +92,8 @@ public class Client extends Thread
 				}
 
 				// Convertis l'image en tableau de bits
+				System.out.println("Envoie de l'image modifiée au serveur");
+
 				byte[] resultData = BufferedImageToByteArray(this.image);
 
 				sendData = (resultData.length + " " + x + " " + y + " ").getBytes();
@@ -89,6 +101,7 @@ public class Client extends Thread
 				this.socket.send(sendPacket);
 
 				// attend de recevoir le port libre
+				System.out.println("Réception du port libre");
 
 				receiveData = new byte[512];
 				receivePacket = new DatagramPacket(receiveData, receiveData.length);
@@ -97,6 +110,8 @@ public class Client extends Thread
 				int portLibre = Integer.parseInt(new String(receivePacket.getData(), 0, receivePacket.getLength()));
 
 				// Envoie l'image modifié au serveur
+				System.out.println("Envoie de l'image modifiée au serveur sur le port " + portLibre);
+				
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
 				baos.write(resultData);
 
@@ -175,7 +190,7 @@ public class Client extends Thread
 			System.out.println("Usage: java Client <address> <port>");
 			System.exit(1);
 		}
-		if ((Integer.parseInt(args[1]) < 1024 || Integer.parseInt(args[1]) > 65535) && Integer.parseInt(args[1]) != 5000)
+		if (Integer.parseInt(args[1]) < 1024 || Integer.parseInt(args[1]) > 65535 || Integer.parseInt(args[1]) == 5000)
 		{
 			System.out.println("Le numéro du port doit être entre 1024 et 65535 et différent de 5000");
 			System.exit(1);

@@ -44,7 +44,7 @@ public class Controleur
 			}
 			else 
 			{
-				if ((Integer.parseInt(args[1]) < 1024 || Integer.parseInt(args[1]) > 65535) && Integer.parseInt(args[1]) != 5000)
+				if (Integer.parseInt(args[3]) < 1024 || Integer.parseInt(args[3]) > 65535 || Integer.parseInt(args[3]) == 5000)
 				{
 					System.out.println("Le numéro du port doit être entre 1024 et 65535 et différent de 5000");
 					System.exit(1);

@@ -41,12 +41,16 @@ public class Service extends Thread {
 				}
 
 				// Envoie la tache au client
+				System.out.println("Envoie de la tache : " + task);
+
 				byte[] sendData = (task + " " + coord[0] + " " + coord[1] + " ").getBytes();
 				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, data.getAddress(),
 						data.getPort());
 				this.serveur.getServerSocket().send(sendPacket);
 
 				// Envoie de la taille de l'image au client
+				System.out.println("Envoie de la taille de l'image : " + this.image.getWidth() + "x" + this.image.getHeight());
+
 				byte[] imageData = Serveur.BufferedImageToByteArray(this.image);
 				String imageSize = String.valueOf(imageData.length);
 				sendData = imageSize.getBytes();
@@ -54,6 +58,8 @@ public class Service extends Thread {
 				this.serveur.getServerSocket().send(sendPacket);
 
 				// Envoie de l'image au client
+				System.out.println("Envoie de l'image");
+
 				sendData = imageData;
 				sendPacket = new DatagramPacket(sendData, sendData.length, data.getAddress(), data.getPort());
 				this.serveur.getServerSocket().send(sendPacket);
@@ -61,6 +67,8 @@ public class Service extends Thread {
 				String info = new String(data.getData(), 0, data.getLength());
 
 				// Séparer les informations de l'image
+				System.out.println("Réception de l'image");
+
 				String[] infoParts = info.split(" ");
 
 				int tailleIMG = Integer.parseInt(infoParts[0]);
@@ -79,12 +87,15 @@ public class Service extends Thread {
 				Service.getPortLibre().remove(0);
 
 				// envoie du port libre au client
+				System.out.println("Envoie du port libre : " + Service.getPortLibre().get(0));
+
 				byte[] sendData = String.valueOf(Service.getPortLibre().get(0)).getBytes();
 				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, data.getAddress(),
 						data.getPort());
 				this.serveur.getServerSocket().send(sendPacket);
 
 				// reception de l'image
+				System.out.println("Réception de l'image");
 
 				DatagramSocket socket = new DatagramSocket();
 				DatagramPacket receivePacket = new DatagramPacket(new byte[512], 512);

@@ -64,20 +64,22 @@ public class Serveur extends Thread
 	@Override
 	public void run()
 	{
-		System.out.println("Serveur initialisé");
+		System.out.println("Serveur initialisé sur le port " + this.serverSocket.getLocalPort() + " et l'adresse " + this.serverSocket.getLocalAddress());
 
 		while(!this.isGrilleImagesComplete())
 		{
 			try
 			{
-				// récupérer les coordonnées de l'image à envoyer
-				BufferedImage image = this.getNextImage();
+				System.out.println("En attente de paquet de données");
 				
-
 				byte[] receiveData = new byte[2048];
 				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				serverSocket.receive(receivePacket);
 					
+				// récupérer les coordonnées de l'image à envoyer
+				BufferedImage image = this.getNextImage();
+
+				System.out.println("Réception du paquet de données");
 				(new Service(this, receivePacket, image)).start();
 			}
 			catch (Exception e)
