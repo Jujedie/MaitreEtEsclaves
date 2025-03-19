@@ -19,7 +19,7 @@ public class FrameImage extends JFrame
 		this.setLocationRelativeTo(this.panelImage);
 		this.setResizable(false);
 
-		this.panelImage = new PanelImage(this, tabImages,this.ctrl);
+		this.panelImage = new PanelImage(this, tabImages);
 
 		this.add(this.panelImage);
 
