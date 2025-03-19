@@ -59,7 +59,7 @@ public class Controleur
 	{
 		if (args.length != 4)
 		{
-			System.out.println("Erreur de format : java Controleur nomImage nombreColonnes nombreLignes port");
+			System.out.println("Erreur de format : java Controleur nomImage nombreLignes nombreColonnes port");
 		}
 
 		else
