@@ -66,7 +66,8 @@ public class Serveur extends Thread
 	{
 		System.out.println("Serveur initialisé sur le port " + this.serverSocket.getLocalPort() + " et l'adresse " + this.serverSocket.getLocalAddress());
 
-		while(!this.isGrilleImagesComplete())
+		//while(!this.isGrilleImagesComplete())
+		while(true)
 		{
 			try
 			{
@@ -88,7 +89,7 @@ public class Serveur extends Thread
 			}
 		}
 
-		System.out.println("\nServeur terminé\n");
+		//System.out.println("\nServeur terminé\n");
 	}
 
 
@@ -144,6 +145,18 @@ public class Serveur extends Thread
 
 	public BufferedImage getNextImage()
 	{
+
+		if (this.isGrilleImagesComplete())
+		{
+			for (int i = 0; i < this.grilleImagesComplete.length; i++)
+			{
+				for (int j = 0; j < this.grilleImagesComplete[0].length; j++)
+				{
+					this.grilleImagesComplete[i][j] = false;
+				}
+			}
+		}
+		
 		for (int i = 0; i < this.grilleImagesComplete.length; i++)
 		{
 			for (int j = 0; j < this.grilleImagesComplete[0].length; j++)

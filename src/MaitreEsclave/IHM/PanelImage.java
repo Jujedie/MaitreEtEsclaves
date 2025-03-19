@@ -13,68 +13,71 @@ import javax.swing.JPanel;
 
 public class PanelImage extends JPanel implements ActionListener
 {
-	private JPanel panelImage;
-	private JPanel panelBoutons;
+    private JPanel panelImage;
+    private JPanel panelBoutons;
 
-	private JButton btnLancer;
-	private JButton btnQuitter;
+    private JButton btnLancer;
+    private JButton btnQuitter;
 
-	private BufferedImage[][] tabImages;
-	private Controleur controleur;
+    private BufferedImage[][] tabImages;
+    private Controleur controleur;
 
-	public PanelImage(FrameImage frameImage, BufferedImage[][] tabImages,Controleur controleur)
-	{
-		this.tabImages = tabImages;
-		this.controleur = controleur;
+    public PanelImage(FrameImage frameImage, BufferedImage[][] tabImages, Controleur controleur)
+    {
+        this.tabImages = tabImages;
+        this.controleur = controleur;
 
-		this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout());
 
-		this.majImage();
+        this.panelImage = new JPanel(); // Initialisation de panelImage
+        this.majImage();
 
-		this.panelBoutons = new JPanel(new GridLayout(1, 4, 20, 20));
+        this.panelBoutons = new JPanel(new GridLayout(1, 4, 20, 20));
 
-		this.btnLancer  = new JButton("Lancer");
-		this.btnQuitter = new JButton("Quitter");
+        this.btnLancer  = new JButton("Lancer");
+        this.btnQuitter = new JButton("Quitter");
 
-		this.panelBoutons.add(new JLabel());
-		this.panelBoutons.add(this.btnLancer);
-		this.panelBoutons.add(this.btnQuitter);
-		this.panelBoutons.add(new JLabel());
+        this.panelBoutons.add(new JLabel());
+        this.panelBoutons.add(this.btnLancer);
+        this.panelBoutons.add(this.btnQuitter);
+        this.panelBoutons.add(new JLabel());
 
-		this.add(this.panelImage, BorderLayout.CENTER);
-		this.add(this.panelBoutons, BorderLayout.SOUTH);
+        this.add(this.panelImage, BorderLayout.CENTER);
+        this.add(this.panelBoutons, BorderLayout.SOUTH);
 
-		this.btnLancer.addActionListener(this);
-		this.btnQuitter.addActionListener(this);
-	}
+        this.btnLancer.addActionListener(this);
+        this.btnQuitter.addActionListener(this);
+    }
 
-	public void actionPerformed(ActionEvent e)
-	{
-		if (e.getSource() == this.btnLancer)
-		{
-			this.controleur.lancer();
-			this.btnLancer.setEnabled(false);
-		}
+    public void actionPerformed(ActionEvent e)
+    {
+        if (e.getSource() == this.btnLancer)
+        {
+            this.controleur.lancer();
+            this.btnLancer.setEnabled(false);
+        }
 
-		if (e.getSource() == this.btnQuitter)
-		{
-			System.exit(0);
-		}
-	}
+        if (e.getSource() == this.btnQuitter)
+        {
+            System.exit(0);
+        }
+    }
 
-	public void majImage()
-	{
-		this.panelImage = new JPanel(new GridLayout(this.tabImages.length, this.tabImages[0].length, 5, 5));
+    public void majImage()
+    {
+        this.panelImage.removeAll(); // Supprime tous les composants existants
 
-		for (int lig = 0; lig < this.tabImages.length; lig++)
-		{
-			for (int col = 0; col < this.tabImages[0].length; col++)
-			{
-				this.panelImage.add(new JLabel(new ImageIcon(this.tabImages[lig][col])));
-			}
-		}
+        this.panelImage.setLayout(new GridLayout(this.tabImages.length, this.tabImages[0].length, 5, 5));
 
-		this.repaint();
-		this.revalidate();
-	}
+        for (int lig = 0; lig < this.tabImages.length; lig++)
+        {
+            for (int col = 0; col < this.tabImages[0].length; col++)
+            {
+                this.panelImage.add(new JLabel(new ImageIcon(this.tabImages[lig][col])));
+            }
+        }
+
+        this.revalidate(); // Force la mise à jour de la disposition
+        this.repaint(); // Redessine le composant
+    }
 }
