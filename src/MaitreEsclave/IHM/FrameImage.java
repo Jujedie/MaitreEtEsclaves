@@ -15,7 +15,7 @@ public class FrameImage extends JFrame
 		this.ctrl = ctrl;
 
 		this.setTitle("Image");
-		this.setSize(tabImages[0][0].getWidth()*tabImages[0].length , tabImages[0][0].getHeight()*tabImages.length + 200);
+		this.setSize(tabImages[0][0].getWidth()*tabImages[0].length , tabImages[0][0].getHeight()*tabImages.length + 75 );
 		this.setLocationRelativeTo(this.panelImage);
 		this.setResizable(false);
 
