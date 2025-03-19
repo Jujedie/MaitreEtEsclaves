@@ -32,4 +32,11 @@ public class FrameImage extends JFrame
 	{
 		return this.ctrl;
 	}
+
+	public PanelImage getPanel() 
+	{
+		return panelImage;
+	}
+
+	
 }
