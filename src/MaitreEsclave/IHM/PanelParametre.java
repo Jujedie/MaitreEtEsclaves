@@ -33,7 +33,7 @@ public class PanelParametre extends JPanel implements ActionListener
 	{
 		this.frameParametre   = frameParametre;
 
-		this.setLayout(new BorderLayout(120, 20));
+		this.setLayout(new BorderLayout(240, 20));
 
 		this.panelParam = new JPanel(new GridLayout(5, 1, 20, 20));
 
