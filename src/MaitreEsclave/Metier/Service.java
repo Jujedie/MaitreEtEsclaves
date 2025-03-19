@@ -5,7 +5,6 @@ import java.io.ByteArrayInputStream;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.security.Provider;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;

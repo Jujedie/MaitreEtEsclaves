@@ -1,5 +1,6 @@
 package MaitreEsclave.IHM;
 
+import MaitreEsclave.Controleur;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -22,10 +23,12 @@ public class PanelImage extends JPanel implements ActionListener
 	private JButton btnQuitter;
 
 	private BufferedImage[][] tabImages;
+	private Controleur controleur;
 
-	public PanelImage(FrameImage frameImage, BufferedImage[][] tabImages)
+	public PanelImage(FrameImage frameImage, BufferedImage[][] tabImages,Controleur controleur)
 	{
 		this.tabImages = tabImages;
+		this.controleur = controleur;
 
 		this.setLayout(new BorderLayout());
 
@@ -52,7 +55,8 @@ public class PanelImage extends JPanel implements ActionListener
 	{
 		if (e.getSource() == this.btnLancer)
 		{
-			// Lancement de la decentralisation des processus
+			this.controleur.lancer();
+			this.btnLancer.setEnabled(false);
 		}
 
 		if (e.getSource() == this.btnQuitter)
