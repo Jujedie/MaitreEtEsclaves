@@ -56,6 +56,12 @@ public class Serveur extends Thread
 		}
 	}
 
+	public void majIHM()
+	{
+		this.controleur.majIHM();
+	}
+
+	@Override
 	public void run()
 	{
 		System.out.println("Serveur initialisé");
@@ -72,7 +78,7 @@ public class Serveur extends Thread
 				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				serverSocket.receive(receivePacket);
 					
-				(new Service(this, receivePacket, image)).run();;
+				(new Service(this, receivePacket, image)).start();
 			}
 			catch (Exception e)
 			{
@@ -80,6 +86,7 @@ public class Serveur extends Thread
 			}
 		}
 	}
+
 
 	public Boolean[][] getGrilleImagesComplete()
 	{
@@ -164,5 +171,9 @@ public class Serveur extends Thread
 	public void setGrilleImagesComplete(int i, int j)
 	{
 		this.grilleImagesComplete[i][j] = true;
+	}
+	public void setGrilleImages(int i, int j, BufferedImage image)
+	{
+		this.grilleImages[i][j] = image;
 	}
 }

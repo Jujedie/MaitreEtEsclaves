@@ -1,15 +1,12 @@
 package MaitreEsclave.Metier;
 
 import java.awt.image.BufferedImage;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
-import java.net.DatagramSocket;
 import java.net.DatagramPacket;
+import java.net.DatagramSocket;
 import java.net.InetAddress;
-
 import javax.imageio.ImageIO;
 
 public class Client extends Thread
@@ -36,6 +33,7 @@ public class Client extends Thread
 		}
 	}
 
+	@Override
 	public void run()
 	{
 		try
@@ -44,8 +42,8 @@ public class Client extends Thread
 			{
 				// Envoie "awaiting task" au server
 				byte[] sendData = "awaiting task".getBytes();
-				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, address, port);
-				socket.send(sendPacket);
+				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, this.address, this.port);
+				this.socket.send(sendPacket);
 
 				//Reçoi la tache envoyé par le serveur server
 				byte[] receiveData = new byte[1024];
@@ -86,16 +84,26 @@ public class Client extends Thread
 				// Convertis l'image en tableau de bits
 				byte[] resultData = BufferedImageToByteArray(this.image);
 
+				sendData = (resultData.length + " " + x + " " + y + " ").getBytes();
+				sendPacket = new DatagramPacket(sendData, sendData.length, this.address, this.port);
+				this.socket.send(sendPacket);
+
+				// attend de recevoir le port libre
+
+				receiveData = new byte[512];
+				receivePacket = new DatagramPacket(receiveData, receiveData.length);
+				
+				socket.receive(receivePacket);
+				int portLibre = Integer.parseInt(new String(receivePacket.getData(), 0, receivePacket.getLength()));
+
 				// Envoie l'image modifié au serveur
 				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-				baos.write(x);
-				baos.write(y);
 				baos.write(resultData);
 
+
 				sendData = baos.toByteArray();
-				sendPacket = new DatagramPacket(sendData, sendData.length, address, port);
-				socket.send(sendPacket);
+				sendPacket = new DatagramPacket(sendData, sendData.length, this.address, portLibre);
+				this.socket.send(sendPacket);
 			}
 		}
 		catch (Exception e)
