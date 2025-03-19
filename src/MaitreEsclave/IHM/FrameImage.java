@@ -1,10 +1,8 @@
 package MaitreEsclave.IHM;
 
 import MaitreEsclave.Controleur;
-
-import javax.swing.JFrame;
-
 import java.awt.image.BufferedImage;
+import javax.swing.JFrame;
 
 public class FrameImage extends JFrame
 {
@@ -17,7 +15,7 @@ public class FrameImage extends JFrame
 		this.ctrl = ctrl;
 
 		this.setTitle("Image");
-		this.setSize(tabImages[0][0].getWidth()*tabImages[0].length, tabImages[0][0].getHeight()*tabImages.length + 100);
+		this.setSize(tabImages[0][0].getWidth()*tabImages[0].length , tabImages[0][0].getHeight()*tabImages.length + 200);
 		this.setLocationRelativeTo(this.panelImage);
 		this.setResizable(false);
 
