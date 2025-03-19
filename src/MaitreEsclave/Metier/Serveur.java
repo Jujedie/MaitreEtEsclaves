@@ -58,7 +58,7 @@ public class Serveur extends Thread
 
 	public void majIHM()
 	{
-		this.controleur.majIHM();
+		this.controleur.majImage();
 	}
 
 	@Override
