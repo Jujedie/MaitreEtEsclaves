@@ -1,0 +1,7 @@
+./src/IHM/FrameImage.java
+./src/IHM/PanelImage.java
+
+./src/Metier/Client.java
+./src/Metier/Serveur.java
+
+./src/Controleur.java
