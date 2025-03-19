@@ -1,9 +1,11 @@
 package MaitreEsclave.Metier;
 
 import java.awt.image.BufferedImage;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+
 import java.net.DatagramSocket;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
@@ -12,10 +14,11 @@ import javax.imageio.ImageIO;
 
 public class Client extends Thread
 {
-	private BufferedImage   image;
+	private BufferedImage  image;
 	private DatagramSocket socket;
-	private InetAddress   address;
-	private int 		     port;
+	private InetAddress    address;
+
+	private int port;
 
 	public Client(InetAddress address, int port)
 	{
@@ -71,9 +74,12 @@ public class Client extends Thread
 				ByteArrayInputStream bais = new ByteArrayInputStream(imageData);
 				this.image = ImageIO.read(bais);
 
-				if (taskType.equals("invert")) {
+				if (taskType.equals("invert"))
+				{
 					invertColors();
-				} else if (taskType.equals("permute")) {
+				}
+				else if (taskType.equals("permute"))
+				{
 					permuteRedBlueGreen();
 				}
 
@@ -178,4 +184,3 @@ public class Client extends Thread
 		}
 	}
 }
-

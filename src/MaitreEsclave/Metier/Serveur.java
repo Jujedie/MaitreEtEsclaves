@@ -1,22 +1,27 @@
 package MaitreEsclave.Metier;
 
 import MaitreEsclave.Controleur;
+
+import javax.swing.ImageIcon;
+
 import java.awt.image.BufferedImage;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 
 public class Serveur extends Thread
 {
-	private Boolean[][] grilleImagesComplete;
-	private BufferedImage[][]   grilleImages;
-	private DatagramSocket      serverSocket;
-	private Controleur            controleur;
+	private Boolean[][]       grilleImagesComplete;
+	private BufferedImage[][] grilleImages;
+	private DatagramSocket    serverSocket;
+	private Controleur        controleur;
 
 	public Serveur(String cheminImage, int nbLignes, int nbColonnes, int port, Controleur ctrl)
 	{
@@ -33,7 +38,10 @@ public class Serveur extends Thread
 				throw new IOException("Impossible de lire l'image");
 			}
 		}
-		catch (IOException e){e.printStackTrace();}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 
 		this.grilleImagesComplete = new Boolean[nbLignes][nbColonnes];
 		this.grilleImages   = new BufferedImage[nbLignes][nbColonnes];
@@ -57,8 +65,10 @@ public class Serveur extends Thread
 	{
 		System.out.println("Serveur initialisé");
 
-		while(!this.isGrilleImagesComplete()){
-			try {
+		while(!this.isGrilleImagesComplete())
+		{
+			try
+			{
 				// récupérer les coordonnées de l'image à envoyer
 
 				// si prochain message est un message "awaiting task"
@@ -68,25 +78,29 @@ public class Serveur extends Thread
 				// sinon traiterImage reçu et modifier la grilleImages
 
 					// Mettre à jour IHM
-			} catch (Exception e) {
+			}
+			catch (Exception e)
+			{
 				e.printStackTrace();
 			}
 		}
 	}
 
-	public Boolean[][] getGrilleImagesComplete() {
+	public Boolean[][] getGrilleImagesComplete()
+	{
 		return grilleImagesComplete;
 	}
 
-	public BufferedImage[][] getGrilleImages() {
+	public BufferedImage[][] getGrilleImages()
+	{
 		return grilleImages;
 	}
 
-	public DatagramSocket getServerSocket() {
+	public DatagramSocket getServerSocket()
+	{
 		return serverSocket;
 	}
 
-	
 	public static byte[] BufferedImageToByteArray(BufferedImage buffer)
 	{
 		byte[] bytes = null;
@@ -104,7 +118,8 @@ public class Serveur extends Thread
 		return bytes;
 	} 
 
-	public Boolean isGrilleImagesComplete() {
+	public Boolean isGrilleImagesComplete()
+	{
 		for (int i = 0; i < this.grilleImagesComplete.length; i++)
 		{
 			for (int j = 0; j < this.grilleImagesComplete[0].length; j++)
@@ -115,6 +130,7 @@ public class Serveur extends Thread
 				}
 			}
 		}
+
 		return true;
 	}
 }
