@@ -1,10 +1,14 @@
 package MaitreEsclave.Metier;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -82,6 +86,11 @@ public class Service extends Thread {
 				int x = Integer.parseInt(infoParts[1]);
 				int y = Integer.parseInt(infoParts[2]);
 
+				URL url = new URI("http://checkip.amazonaws.com/").toURL();
+				BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+				String adr = br.readLine();
+
+				
 				while (Service.getPortLibre().size() == 0) {
 					try {
 						Thread.sleep(100);
@@ -91,7 +100,7 @@ public class Service extends Thread {
 					}
 				}
 
-				DatagramSocket ds = new DatagramSocket(Service.getPortLibre().remove(0), InetAddress.getByName(InetAddress.getLocalHost().getHostAddress()));
+				DatagramSocket ds = new DatagramSocket(Service.getPortLibre().remove(0), InetAddress.getByName(adr));
 				int port = ds.getLocalPort();
 
 				// envoie du port libre au client
