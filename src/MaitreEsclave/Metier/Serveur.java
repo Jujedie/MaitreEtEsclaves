@@ -2,17 +2,12 @@ package MaitreEsclave.Metier;
 
 import MaitreEsclave.Controleur;
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.URI;
-import java.net.URL;
-
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -30,11 +25,8 @@ public class Serveur extends Thread
 		BufferedImage image = null;
 		try
 		{
-			URL url = new URI("http://checkip.amazonaws.com/").toURL();
-			BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
-			String adr = br.readLine();
-
-			this.serverSocket = new DatagramSocket(port, InetAddress.getByName(adr));
+			
+			this.serverSocket = new DatagramSocket(port, InetAddress.getLocalHost());
 
 			image = ImageIO.read(new File(cheminImage));
 			if (image == null)
@@ -43,10 +35,6 @@ public class Serveur extends Thread
 			}
 		}
 		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
