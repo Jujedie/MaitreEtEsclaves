@@ -29,6 +29,7 @@ public class Service extends Thread {
 			String message = new String(data.getData(), 0, data.getLength());
 
 			if (message.equals("awaiting task")) {
+				System.out.println("Image : "+ this.image);
 				int[] coord = this.serveur.getImageCoordinates(this.image);
 
 				this.serveur.setGrilleImagesComplete(coord[0], coord[1]);

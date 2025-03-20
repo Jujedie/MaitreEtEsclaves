@@ -46,11 +46,19 @@ public class Serveur extends Thread
 		int largeurImage = imageIcon.getIconWidth() / nbColonnes;
 		int hauteurImage = imageIcon.getIconHeight() / nbLignes;
 
+		System.out.println("largeurImage = " + largeurImage + " hauteurImage = " + hauteurImage);
+		System.out.println("nbLignes = " + nbLignes + " nbColonnes = " + nbColonnes);
+		System.out.println("Largeur image = " + imageIcon.getIconWidth() + " Hauteur image = " + imageIcon.getIconHeight());
+
 		for (int i = 0; i < nbLignes ; i++)
 		{
 			for (int j = 0; j < nbColonnes ; j++)
 			{
-				this.grilleImages[i][j] = image.getSubimage(j * largeurImage, i * hauteurImage, largeurImage, hauteurImage);
+				int x = j * largeurImage;
+				int y = i * hauteurImage;
+				int w = (j == nbColonnes - 1) ? imageIcon.getIconWidth() - x : largeurImage;// afin de prendre en compte les images qui ne sont pas carrées
+				int h = (i == nbLignes - 1) ? imageIcon.getIconHeight() - y : hauteurImage;
+				this.grilleImages[i][j] = image.getSubimage(x, y, w, h);
 				this.grilleImagesComplete[i][j] = false;
 			}
 		}
