@@ -3,6 +3,7 @@ package MaitreEsclave.IHM;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -37,7 +38,7 @@ public class PanelParametre extends JPanel implements ActionListener
 
 		this.setLayout(new BorderLayout(240, 20));
 
-		this.panelParam = new JPanel(new GridLayout(5, 1, 20, 20));
+		this.panelParam = new JPanel(new GridLayout(6, 1, 20, 20));
 
 		this.txtNbColonnes = new JTextField();
 		this.txtNbLignes   = new JTextField();
@@ -53,6 +54,7 @@ public class PanelParametre extends JPanel implements ActionListener
 		this.panelParam.add(this.txtNbLignes);
 		this.panelParam.add(this.txtNbColonnes);
 		this.panelParam.add(this.txtPort);
+		this.panelParam.add(new JLabel("Attention l'image ne doit contenir de partie transparent."));
 		this.panelParam.add(this.btnImage);
 		this.panelParam.add(this.btnEnregistrer);
 
