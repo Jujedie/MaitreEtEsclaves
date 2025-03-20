@@ -1,6 +1,7 @@
 package MaitreEsclave.IHM;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
@@ -54,14 +55,17 @@ public class PanelAccueil extends JPanel implements ActionListener
 	{
 		if (e.getSource() == this.btnLancer)
 		{
-			if (this.frameAccueil.getCtrl() != null)
+			if (this.frameAccueil.getCtrl().getServeur() != null)
 			{
 				this.frameAccueil.getCtrl().lancer();
 				this.frameImage = new FrameImage(this.frameAccueil.getCtrl(), this.frameAccueil.getCtrl().getServeur().getGrilleImages());
+				this.btnLancer.setEnabled(false);
+				this.btnParametre.setEnabled(false);
 			}
 			else 
 			{
-				// afficher impossible de lancer le serveur n'a pas été paramétré
+				JOptionPane.showMessageDialog(this, "Impossible de lancer, le serveur n'a pas été paramétré.", "Erreur", JOptionPane.ERROR_MESSAGE);
+				return;
 			}
 		}
 

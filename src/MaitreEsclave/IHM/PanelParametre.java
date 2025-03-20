@@ -3,6 +3,7 @@ package MaitreEsclave.IHM;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -90,19 +91,23 @@ public class PanelParametre extends JPanel implements ActionListener
 		{
 			if (this.nomImage == null)
 			{
-
+				JOptionPane.showMessageDialog(this, "Veuillez choisir une image", "Erreur", JOptionPane.ERROR_MESSAGE);
+				return;
 			}
-			if (Integer.parseInt(this.txtNbColonnes.getText()) < 0)
+			if (Integer.parseInt(this.txtNbColonnes.getText()) <= 1)
 			{
-
+				JOptionPane.showMessageDialog(this, "Le nombre de colonnes doit être positif et supérieur à 1", "Erreur", JOptionPane.ERROR_MESSAGE);
+				return;
 			}
-			if (Integer.parseInt(this.txtNbLignes.getText()) < 0)
+			if (Integer.parseInt(this.txtNbLignes.getText()) <= 1 )
 			{
-
+				JOptionPane.showMessageDialog(this, "Le nombre de lignes doit être positif et supérieur à 1", "Erreur", JOptionPane.ERROR_MESSAGE);
+				return;
 			}
-			if (Integer.parseInt(this.txtNbLignes.getText()) < 1024 || Integer.parseInt(this.txtNbLignes.getText()) > 65535 || Integer.parseInt(this.txtNbLignes.getText()) == 5000)
+			if (Integer.parseInt(this.txtPort.getText()) < 1024 || Integer.parseInt(this.txtPort.getText()) > 65535 || Integer.parseInt(this.txtPort.getText()) == 5000)
 			{
-
+				JOptionPane.showMessageDialog(this, "Le port doit être compris entre 1024 et 65535 et ne doit pas être égal à 5000", "Erreur", JOptionPane.ERROR_MESSAGE);
+				return;
 			}
 
 			this.frameParametre.getCtrl().creerServeur
