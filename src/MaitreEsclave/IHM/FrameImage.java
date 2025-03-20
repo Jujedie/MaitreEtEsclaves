@@ -20,8 +20,7 @@ public class FrameImage extends JFrame {
 
 		this.panelImage = new PanelImage(this, tabImages);
 
-		JScrollPane scrollPane = new JScrollPane(this.panelImage);
-		this.add(scrollPane);
+		this.add(this.panelImage);
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

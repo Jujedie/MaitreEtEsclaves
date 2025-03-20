@@ -29,8 +29,13 @@ public class Service extends Thread {
 			String message = new String(data.getData(), 0, data.getLength());
 
 			if (message.equals("awaiting task")) {
-				System.out.println("Image : "+ this.image);
+				System.out.println("Image : " + this.image);
 				int[] coord = this.serveur.getImageCoordinates(this.image);
+
+				if (coord == null) {
+					System.err.println("Erreur : Coordonnées de l'image non trouvées.");
+					return;
+				}
 
 				this.serveur.setGrilleImagesComplete(coord[0], coord[1]);
 
@@ -45,11 +50,13 @@ public class Service extends Thread {
 				System.out.println("Envoie de la tache : " + task + "\n");
 
 				byte[] sendData = (task + " " + coord[0] + " " + coord[1] + " ").getBytes();
-				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, data.getAddress(),data.getPort());
+				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, data.getAddress(),
+						data.getPort());
 				this.serveur.getServerSocket().send(sendPacket);
 
 				// Envoie de la taille de l'image au client
-				System.out.println("Envoie de la taille de l'image : " + this.image.getWidth() + "x" + this.image.getHeight()+"\n");
+				System.out.println("Envoie de la taille de l'image : " + this.image.getWidth() + "x"
+						+ this.image.getHeight() + "\n");
 
 				byte[] imageData = Serveur.BufferedImageToByteArray(this.image);
 				String imageSize = String.valueOf(imageData.length);
@@ -84,15 +91,15 @@ public class Service extends Thread {
 					}
 				}
 
-				DatagramSocket ds = new DatagramSocket(Service.getPortLibre().get(0), InetAddress.getLocalHost());
-				Service.getPortLibre().remove(0);
+				DatagramSocket ds = new DatagramSocket(Service.getPortLibre().remove(0), InetAddress.getByName(InetAddress.getLocalHost().getHostAddress()));
 				int port = ds.getLocalPort();
 
 				// envoie du port libre au client
-				System.out.println("Envoie du port libre : " + ds.getLocalPort()+"\n");
+				System.out.println("Envoie du port libre : " + ds.getLocalPort() + "\n");
 
 				byte[] sendData = String.valueOf(ds.getLocalPort()).getBytes();
-				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, data.getAddress(),data.getPort());
+				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, data.getAddress(),
+						data.getPort());
 				this.serveur.getServerSocket().send(sendPacket);
 
 				// reception de l'image
@@ -102,7 +109,7 @@ public class Service extends Thread {
 				byte[] receiveData = new byte[512];
 
 				try {
-					receiveData   = new byte[tailleIMG];
+					receiveData = new byte[tailleIMG];
 					receivePacket = new DatagramPacket(receiveData, receiveData.length);
 					ds.receive(receivePacket);
 				} catch (Exception e) {
@@ -110,18 +117,15 @@ public class Service extends Thread {
 					System.exit(0);
 				}
 
-				
-
 				byte[] imageData = receivePacket.getData();
 				ByteArrayInputStream bais = new ByteArrayInputStream(imageData);
 				this.image = ImageIO.read(bais);
 
 				System.out.println("Image reçue\n");
 
-				
 				ds.close();
 
-				Service.getPortLibre().add(0,port);
+				Service.getPortLibre().add(0, port);
 
 				this.serveur.setGrilleImages(x, y, this.image);
 

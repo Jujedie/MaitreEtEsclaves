@@ -10,6 +10,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 
 public class PanelImage extends JPanel implements ActionListener
 {
@@ -30,14 +32,14 @@ public class PanelImage extends JPanel implements ActionListener
         this.majImage();
 
         this.panelBoutons = new JPanel(new GridLayout(1, 3, 20, 20));
-
+        JScrollPane scrollPane = new JScrollPane(this.panelImage);
         this.btnQuitter = new JButton("Quitter");
 
         this.panelBoutons.add(new JLabel());
         this.panelBoutons.add(this.btnQuitter);
         this.panelBoutons.add(new JLabel());
-
-        this.add(this.panelImage, BorderLayout.CENTER);
+        
+        this.add(scrollPane, BorderLayout.CENTER);
         this.add(this.panelBoutons, BorderLayout.SOUTH);
 
         this.btnQuitter.addActionListener(this);
