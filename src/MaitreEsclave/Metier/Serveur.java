@@ -25,8 +25,7 @@ public class Serveur extends Thread
 		BufferedImage image = null;
 		try
 		{
-			
-			this.serverSocket = new DatagramSocket(port, InetAddress.getLocalHost());
+			this.serverSocket = new DatagramSocket(port,InetAddress.getByName(InetAddress.getLocalHost().getHostAddress()));
 
 			image = ImageIO.read(new File(cheminImage));
 			if (image == null)
