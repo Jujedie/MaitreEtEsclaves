@@ -17,7 +17,7 @@ public class Controleur
 
 	public void majImage()
 	{
-		this.frameAccueil.getFrameImage().getPanel().majImage();;
+		this.frameAccueil.getFrameImage().getPanel().majImage();
 	}
 
 	public Serveur getServeur()
@@ -39,6 +39,4 @@ public class Controleur
 	{
 		this.serveur.start();
 	}
-
-	
 }

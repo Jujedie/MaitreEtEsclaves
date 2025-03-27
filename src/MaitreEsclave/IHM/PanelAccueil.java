@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 public class PanelAccueil extends JPanel implements ActionListener
 {
 	private FrameAccueil   frameAccueil;
+	@SuppressWarnings("unused")
 	private FrameParametre frameParametre;
 	private FrameImage     frameImage;
 

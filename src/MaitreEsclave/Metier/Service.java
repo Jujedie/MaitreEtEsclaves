@@ -8,30 +8,35 @@ import java.net.InetAddress;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
-public class Service extends Thread {
+public class Service extends Thread
+{
 	private static ArrayList<Integer> portLibre = initPortLibre();
 
 	private Serveur serveur;
 	private DatagramPacket data;
 	private BufferedImage image;
 
-	public Service(Serveur serveur, DatagramPacket data, BufferedImage image) {
+	public Service(Serveur serveur, DatagramPacket data, BufferedImage image)
+	{
 		this.serveur = serveur;
 		this.data = data;
 		this.image = image;
 	}
 
 	@Override
-	public void run() {
-		try {
-
+	public void run()
+	{
+		try
+		{
 			String message = new String(data.getData(), 0, data.getLength());
 
-			if (message.equals("awaiting task")) {
+			if (message.equals("awaiting task"))
+			{
 				System.out.println("Image : " + this.image);
 				int[] coord = this.serveur.getImageCoordinates(this.image);
 
-				if (coord == null) {
+				if (coord == null)
+				{
 					System.err.println("Erreur : Coordonnées de l'image non trouvées.");
 					return;
 				}
@@ -39,9 +44,12 @@ public class Service extends Thread {
 				this.serveur.setGrilleImagesComplete(coord[0], coord[1]);
 
 				String task;
-				if (Math.random() < 0.5) {
+				if (Math.random() < 0.5)
+				{
 					task = "invert";
-				} else {
+				}
+				else
+				{
 					task = "permute";
 				}
 
@@ -49,13 +57,11 @@ public class Service extends Thread {
 				System.out.println("Envoie de la tache : " + task + "\n");
 
 				byte[] sendData = (task + " " + coord[0] + " " + coord[1] + " ").getBytes();
-				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, data.getAddress(),
-						data.getPort());
+				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, data.getAddress(), data.getPort());
 				this.serveur.getServerSocket().send(sendPacket);
 
 				// Envoie de la taille de l'image au client
-				System.out.println("Envoie de la taille de l'image : " + this.image.getWidth() + "x"
-						+ this.image.getHeight() + "\n");
+				System.out.println("Envoie de la taille de l'image : " + this.image.getWidth() + "x" + this.image.getHeight() + "\n");
 
 				byte[] imageData = Serveur.BufferedImageToByteArray(this.image);
 				String imageSize = String.valueOf(imageData.length);
@@ -69,7 +75,9 @@ public class Service extends Thread {
 				sendData = imageData;
 				sendPacket = new DatagramPacket(sendData, sendData.length, data.getAddress(), data.getPort());
 				this.serveur.getServerSocket().send(sendPacket);
-			} else {
+			}
+			else
+			{
 				String info = new String(data.getData(), 0, data.getLength());
 
 				// Séparer les informations de l'image
@@ -81,9 +89,10 @@ public class Service extends Thread {
 				int x = Integer.parseInt(infoParts[1]);
 				int y = Integer.parseInt(infoParts[2]);
 
-				
-				while (Service.getPortLibre().size() == 0) {
-					try {
+				while (Service.getPortLibre().size() == 0)
+				{
+					try
+					{
 						Thread.sleep(100);
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -98,8 +107,7 @@ public class Service extends Thread {
 				System.out.println("Envoie du port libre : " + ds.getLocalPort() + "\n");
 
 				byte[] sendData = String.valueOf(ds.getLocalPort()).getBytes();
-				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, data.getAddress(),
-						data.getPort());
+				DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, data.getAddress(), data.getPort());
 				this.serveur.getServerSocket().send(sendPacket);
 
 				// reception de l'image
@@ -108,11 +116,14 @@ public class Service extends Thread {
 				DatagramPacket receivePacket = new DatagramPacket(new byte[512], 512);
 				byte[] receiveData = new byte[512];
 
-				try {
+				try
+				{
 					receiveData = new byte[tailleIMG];
 					receivePacket = new DatagramPacket(receiveData, receiveData.length);
 					ds.receive(receivePacket);
-				} catch (Exception e) {
+				}
+				catch (Exception e)
+				{
 					e.printStackTrace();
 					System.exit(0);
 				}
@@ -132,13 +143,16 @@ public class Service extends Thread {
 				System.out.println("Image ajoutée à la grille\n");
 				this.serveur.majIHM();
 			}
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			e.printStackTrace();
 			System.exit(0);
 		}
 	}
 
-	private static ArrayList<Integer> initPortLibre() {
+	private static ArrayList<Integer> initPortLibre()
+	{
 		ArrayList<Integer> portLibre = new ArrayList<Integer>();
 
 		portLibre.add(5000);
@@ -146,7 +160,8 @@ public class Service extends Thread {
 		return portLibre;
 	}
 
-	public static ArrayList<Integer> getPortLibre() {
+	public static ArrayList<Integer> getPortLibre()
+	{
 		return portLibre;
 	}
 }

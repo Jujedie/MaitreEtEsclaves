@@ -57,7 +57,7 @@ public class Serveur extends Thread
 			{
 				int x = j * largeurImage;
 				int y = i * hauteurImage;
-				int w = (j == nbColonnes - 1) ? imageIcon.getIconWidth() - x : largeurImage;// afin de prendre en compte les images qui ne sont pas carrées
+				int w = (j == nbColonnes - 1) ? imageIcon.getIconWidth() - x : largeurImage; // afin de prendre en compte les images qui ne sont pas carrées
 				int h = (i == nbLignes - 1) ? imageIcon.getIconHeight() - y : hauteurImage;
 				this.grilleImages[i][j] = image.getSubimage(x, y, w, h);
 				this.grilleImagesComplete[i][j] = false;
@@ -73,10 +73,12 @@ public class Serveur extends Thread
 	@Override
 	public void run()
 	{
-		try {
+		try
+		{
 			System.out.println("Serveur initialisé sur le port " + this.serverSocket.getLocalPort() + " et l'adresse " + InetAddress.getLocalHost());
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
+		}
+		catch (UnknownHostException e)
+		{
 			e.printStackTrace();
 		}
 
@@ -90,7 +92,7 @@ public class Serveur extends Thread
 				byte[] receiveData = new byte[2048];
 				DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
 				serverSocket.receive(receivePacket);
-					
+
 				// récupérer les coordonnées de l'image à envoyer
 				BufferedImage image = this.getNextImage();
 
@@ -105,7 +107,6 @@ public class Serveur extends Thread
 
 		//System.out.println("\nServeur terminé\n");
 	}
-
 
 	public Boolean[][] getGrilleImagesComplete()
 	{
@@ -122,7 +123,6 @@ public class Serveur extends Thread
 		return serverSocket;
 	}
 
-
 	public static byte[] BufferedImageToByteArray(BufferedImage buffer)
 	{
 		byte[] bytes = null;
@@ -138,7 +138,7 @@ public class Serveur extends Thread
 		}
 
 		return bytes;
-	} 
+	}
 
 	public Boolean isGrilleImagesComplete()
 	{
@@ -156,7 +156,6 @@ public class Serveur extends Thread
 		return true;
 	}
 
-
 	public BufferedImage getNextImage()
 	{
 
@@ -170,7 +169,7 @@ public class Serveur extends Thread
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < this.grilleImagesComplete.length; i++)
 		{
 			for (int j = 0; j < this.grilleImagesComplete[0].length; j++)
@@ -184,6 +183,7 @@ public class Serveur extends Thread
 
 		return null;
 	}
+
 	public int[] getImageCoordinates(BufferedImage image)
 	{
 		for (int i = 0; i < this.grilleImagesComplete.length; i++)
@@ -199,10 +199,12 @@ public class Serveur extends Thread
 
 		return null;
 	}
+
 	public void setGrilleImagesComplete(int i, int j)
 	{
 		this.grilleImagesComplete[i][j] = true;
 	}
+
 	public void setGrilleImages(int i, int j, BufferedImage image)
 	{
 		this.grilleImages[i][j] = image;
