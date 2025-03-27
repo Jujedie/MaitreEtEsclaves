@@ -196,7 +196,7 @@ public class Client extends Thread
 			System.exit(1);
 			
 		}
-		if (Integer.parseInt(args[0]) < 1024 || Integer.parseInt(args[1]) > 65535 || Integer.parseInt(args[1]) == 5000)
+		if (Integer.parseInt(args[0]) < 1024 || Integer.parseInt(args[0]) > 65535 || Integer.parseInt(args[0]) == 5000)
 		{
 			System.out.println("Le numéro du port doit être entre 1024 et 65535 et différent de 5000");
 			System.exit(1);
