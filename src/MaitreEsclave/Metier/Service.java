@@ -91,7 +91,7 @@ public class Service extends Thread {
 					}
 				}
 
-				DatagramSocket ds = new DatagramSocket(Service.getPortLibre().remove(0),InetAddress.getByName(InetAddress.getLocalHost().getHostAddress()));
+				DatagramSocket ds = new DatagramSocket(Service.getPortLibre().remove(0),InetAddress.getLocalHost());
 				int port = ds.getLocalPort();
 
 				// envoie du port libre au client

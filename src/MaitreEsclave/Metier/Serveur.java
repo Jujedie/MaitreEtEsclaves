@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -26,7 +25,7 @@ public class Serveur extends Thread
 		BufferedImage image = null;
 		try
 		{
-			this.serverSocket = new DatagramSocket(port,InetAddress.getByName(InetAddress.getLocalHost().getHostAddress()));
+			this.serverSocket = new DatagramSocket(port,InetAddress.getLocalHost());
 
 			image = ImageIO.read(new File(cheminImage));
 			if (image == null)
@@ -73,12 +72,7 @@ public class Serveur extends Thread
 	@Override
 	public void run()
 	{
-		try {
-			System.out.println("Serveur initialisé sur le port " + this.serverSocket.getLocalPort() + " et l'adresse " + InetAddress.getByName(InetAddress.getLocalHost().getHostAddress()));
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		System.out.println("Serveur initialisé sur le port " + this.serverSocket.getLocalPort() + " et l'adresse " + InetAddress.getLocalHost());
 
 		//while(!this.isGrilleImagesComplete())
 		while(true)
