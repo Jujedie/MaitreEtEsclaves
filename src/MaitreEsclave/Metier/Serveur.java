@@ -72,7 +72,7 @@ public class Serveur extends Thread
 	@Override
 	public void run()
 	{
-		System.out.println("Serveur initialisé sur le port " + this.serverSocket.getLocalPort() + " et l'adresse " + this.serverSocket.getLocalAddress());
+		System.out.println("Serveur initialisé sur le port " + this.serverSocket.getLocalPort() + " et l'adresse " + this.serverSocket.getInetAddress());
 
 		//while(!this.isGrilleImagesComplete())
 		while(true)
