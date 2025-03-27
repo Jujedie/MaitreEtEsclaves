@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
@@ -72,7 +73,12 @@ public class Serveur extends Thread
 	@Override
 	public void run()
 	{
-		System.out.println("Serveur initialisé sur le port " + this.serverSocket.getLocalPort() + " et l'adresse " + InetAddress.getLocalHost());
+		try {
+			System.out.println("Serveur initialisé sur le port " + this.serverSocket.getLocalPort() + " et l'adresse " + InetAddress.getLocalHost().toString());
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		//while(!this.isGrilleImagesComplete())
 		while(true)
