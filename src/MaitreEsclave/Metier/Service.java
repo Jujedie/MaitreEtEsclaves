@@ -6,7 +6,6 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
 
 public class Service extends Thread {
@@ -92,7 +91,7 @@ public class Service extends Thread {
 					}
 				}
 
-				DatagramSocket ds = new DatagramSocket(Service.getPortLibre().remove(0),InetAddress.getLocalHost());
+				DatagramSocket ds = new DatagramSocket(Service.getPortLibre().remove(0),InetAddress.getByName(InetAddress.getLocalHost().getHostAddress()));
 				int port = ds.getLocalPort();
 
 				// envoie du port libre au client
