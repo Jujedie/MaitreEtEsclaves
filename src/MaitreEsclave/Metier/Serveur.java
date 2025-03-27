@@ -74,7 +74,7 @@ public class Serveur extends Thread
 	public void run()
 	{
 		try {
-			System.out.println("Serveur initialisé sur le port " + this.serverSocket.getLocalPort() + " et l'adresse " + InetAddress.getLocalHost().toString());
+			System.out.println("Serveur initialisé sur le port " + this.serverSocket.getLocalPort() + " et l'adresse " + InetAddress.getLocalHost());
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
