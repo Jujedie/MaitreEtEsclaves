@@ -129,7 +129,7 @@ public class Serveur extends Thread
 	{
 		return adress;
 	}
-	
+
 	public static byte[] BufferedImageToByteArray(BufferedImage buffer)
 	{
 		byte[] bytes = null;
@@ -176,19 +176,15 @@ public class Serveur extends Thread
 				}
 			}
 		}
-
-		for (int i = 0; i < this.grilleImagesComplete.length; i++)
-		{
-			for (int j = 0; j < this.grilleImagesComplete[0].length; j++)
+		
+		do { 
+			int x = (int)(Math.random() % this.grilleImagesComplete[0].length);
+			int y = (int)(Math.random() % this.grilleImagesComplete.length);
+			if (!this.grilleImagesComplete[y][x])
 			{
-				if (!this.grilleImagesComplete[i][j])
-				{
-					return this.grilleImages[i][j];
-				}
+				return this.grilleImages[y][x];
 			}
-		}
-
-		return null;
+		} while (true);
 	}
 
 	public int[] getImageCoordinates(BufferedImage image)
