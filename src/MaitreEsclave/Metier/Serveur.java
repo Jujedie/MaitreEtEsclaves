@@ -5,12 +5,10 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -192,7 +190,17 @@ public class Serveur extends Thread
 			}
 		}
 
-		return imagesLibre.get((int)(Math.random() * imagesLibre.size()));
+		if (imagesLibre.isEmpty())
+		{
+			return null;
+		}
+
+		BufferedImage image = imagesLibre.get((int)(Math.random() * imagesLibre.size()));
+		int[] coord = this.getImageCoordinates(image);
+		
+		this.grilleImagesComplete[coord[0]][coord[1]] = true;
+
+		return image;
 	}
 
 	public int[] getImageCoordinates(BufferedImage image)
