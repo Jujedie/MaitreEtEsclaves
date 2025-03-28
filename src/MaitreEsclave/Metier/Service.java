@@ -100,7 +100,7 @@ public class Service extends Thread
 					}
 				}
 
-				DatagramSocket ds = new DatagramSocket(Service.getPortLibre().remove(0),InetAddress.getLocalHost());
+				DatagramSocket ds = new DatagramSocket(Service.getPortLibre().remove(0),InetAddress.getByName(this.serveur.getAdress()));
 				int port = ds.getLocalPort();
 
 				// envoie du port libre au client
@@ -153,11 +153,11 @@ public class Service extends Thread
 
 	private static ArrayList<Integer> initPortLibre()
 	{
-		ArrayList<Integer> portLibre = new ArrayList<Integer>();
+		ArrayList<Integer> portLibreTemp = new ArrayList<Integer>();
 
-		portLibre.add(5000);
+		portLibreTemp.add(5000);
 
-		return portLibre;
+		return portLibreTemp;
 	}
 
 	public static ArrayList<Integer> getPortLibre()

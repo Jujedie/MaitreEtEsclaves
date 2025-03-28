@@ -1,5 +1,9 @@
 package MaitreEsclave.IHM;
 
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -7,12 +11,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class PanelParametre extends JPanel implements ActionListener
 {
@@ -24,6 +22,7 @@ public class PanelParametre extends JPanel implements ActionListener
 
 	private JTextField   txtNbLignes;
 	private JTextField   txtNbColonnes;
+	private JTextField   txtAdress;
 	private JTextField   txtPort;
 
 	private JButton btnImage;
@@ -38,14 +37,16 @@ public class PanelParametre extends JPanel implements ActionListener
 
 		this.setLayout(new BorderLayout(240, 20));
 
-		this.panelParam = new JPanel(new GridLayout(6, 1, 20, 20));
+		this.panelParam = new JPanel(new GridLayout(7, 1, 20, 20));
 
 		this.txtNbColonnes = new JTextField();
 		this.txtNbLignes   = new JTextField();
+		this.txtAdress     = new JTextField();
 		this.txtPort       = new JTextField();
 
 		txtNbColonnes.setBorder(BorderFactory.createCompoundBorder( BorderFactory.createTitledBorder("Nombre de lignes :"  ), txtNbColonnes.getBorder()));
 		txtNbLignes  .setBorder(BorderFactory.createCompoundBorder( BorderFactory.createTitledBorder("Nombre de colonnes :"), txtNbLignes  .getBorder()));
+		txtAdress    .setBorder(BorderFactory.createCompoundBorder( BorderFactory.createTitledBorder("Adresse IP :"        ), txtAdress    .getBorder()));
 		txtPort      .setBorder(BorderFactory.createCompoundBorder( BorderFactory.createTitledBorder("Port :"              ), txtPort      .getBorder()));
 
 		this.btnImage  = new JButton("Choisir l'image");
@@ -53,6 +54,7 @@ public class PanelParametre extends JPanel implements ActionListener
 
 		this.panelParam.add(this.txtNbLignes);
 		this.panelParam.add(this.txtNbColonnes);
+		this.panelParam.add(this.txtAdress);
 		this.panelParam.add(this.txtPort);
 		this.panelParam.add(new JLabel("Attention l'image ne doit contenir de partie transparent."));
 		this.panelParam.add(this.btnImage);
@@ -66,6 +68,7 @@ public class PanelParametre extends JPanel implements ActionListener
 
 		this.txtNbLignes.addActionListener(this);
 		this.txtNbColonnes.addActionListener(this);
+		this.txtAdress.addActionListener(this);
 		this.txtPort.addActionListener(this);
 
 		this.btnImage.addActionListener(this);
@@ -117,6 +120,7 @@ public class PanelParametre extends JPanel implements ActionListener
 				this.nomImage, 
 				Integer.parseInt(this.txtNbLignes.getText())  ,
 				Integer.parseInt(this.txtNbColonnes.getText()),
+				this.txtAdress.getText(),
 				Integer.parseInt(this.txtPort      .getText())
 			);
 

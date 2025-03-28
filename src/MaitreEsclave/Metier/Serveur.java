@@ -19,14 +19,17 @@ public class Serveur extends Thread
 	private DatagramSocket    serverSocket;
 	private Controleur        controleur;
 
-	public Serveur(String cheminImage, int nbLignes, int nbColonnes, int port, Controleur ctrl)
+	private String adress;
+
+	public Serveur(String cheminImage, int nbLignes, int nbColonnes, String adress, int port, Controleur ctrl)
 	{
 		this.controleur = ctrl;
 		
 		BufferedImage image = null;
 		try
 		{
-			this.serverSocket = new DatagramSocket(port,InetAddress.getLocalHost());
+			this.adress = adress;
+			this.serverSocket = new DatagramSocket(port,InetAddress.getByName(adress));
 
 			image = ImageIO.read(new File(cheminImage));
 			if (image == null)
@@ -122,7 +125,11 @@ public class Serveur extends Thread
 	{
 		return serverSocket;
 	}
-
+	public String getAdress()
+	{
+		return adress;
+	}
+	
 	public static byte[] BufferedImageToByteArray(BufferedImage buffer)
 	{
 		byte[] bytes = null;

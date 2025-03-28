@@ -192,11 +192,11 @@ public class Client extends Thread
 	{
 		if (args.length != 1)
 		{
-			System.out.println("Usage: java Client <port>");
+			System.out.println("Usage: java Client <IP adress> <port>");
 			System.exit(1);
 			
 		}
-		if (Integer.parseInt(args[0]) < 1024 || Integer.parseInt(args[0]) > 65535 || Integer.parseInt(args[0]) == 5000)
+		if (Integer.parseInt(args[1]) < 1024 || Integer.parseInt(args[1]) > 65535 || Integer.parseInt(args[1]) == 5000)
 		{
 			System.out.println("Le numéro du port doit être entre 1024 et 65535 et différent de 5000");
 			System.exit(1);
@@ -204,7 +204,7 @@ public class Client extends Thread
 		
 		try
 		{
-			Client client = new Client(InetAddress.getLocalHost(), Integer.parseInt(args[0]));
+			Client client = new Client(InetAddress.getByName(args[0]), Integer.parseInt(args[1]));
 			client.start();
 		}
 		catch (Exception e)

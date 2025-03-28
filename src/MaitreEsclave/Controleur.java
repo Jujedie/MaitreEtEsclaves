@@ -25,9 +25,9 @@ public class Controleur
 		return this.serveur;
 	}
 
-	public void creerServeur(String nomImg, int nbLig, int nbCol, int port)
+	public void creerServeur(String nomImg, int nbLig, int nbCol, String adress, int port)
 	{
-		this.serveur = new Serveur(nomImg, nbLig, nbCol, port, this);
+		this.serveur = new Serveur(nomImg, nbLig, nbCol, adress, port, this);
 	}
 
 	public static void main(String[] args)
