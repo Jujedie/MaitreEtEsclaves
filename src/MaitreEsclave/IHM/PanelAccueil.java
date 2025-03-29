@@ -1,7 +1,6 @@
 package MaitreEsclave.IHM;
 
 import javax.swing.JButton;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import java.awt.BorderLayout;
@@ -12,33 +11,33 @@ import java.awt.event.ActionEvent;
 
 public class PanelAccueil extends JPanel implements ActionListener
 {
-	private FrameAccueil   frameAccueil;
+	private FrameAccueil frameAccueil;
+	private FrameServeur frameServeur;
 	@SuppressWarnings("unused")
-	private FrameParametre frameParametre;
-	private FrameImage     frameImage;
+	private FrameClient frameClient;
 
 	private JPanel panelBoutons;
 
-	private JButton btnLancer;
-	private JButton btnParametre;
+	private JButton btnServeur;
+	private JButton btnClient;
 	private JButton btnQuitter;
 
 	public PanelAccueil(FrameAccueil frameAccueil)
 	{
-		this.frameAccueil   = frameAccueil;
-		this.frameParametre = null;
-		this.frameImage     = null;
+		this.frameAccueil = frameAccueil;
+		this.frameServeur = null;
+		this.frameClient  = null;
 
 		this.setLayout(new BorderLayout(60, 20));
 
 		this.panelBoutons = new JPanel(new GridLayout(3, 1, 20, 20));
 
-		this.btnLancer    = new JButton("Lancer");
-		this.btnParametre = new JButton("Parametre");
-		this.btnQuitter   = new JButton("Quitter");
+		this.btnServeur = new JButton("Serveur");
+		this.btnClient  = new JButton("Client" );
+		this.btnQuitter = new JButton("Quitter");
 
-		this.panelBoutons.add(this.btnLancer);
-		this.panelBoutons.add(this.btnParametre);
+		this.panelBoutons.add(this.btnServeur);
+		this.panelBoutons.add(this.btnClient);
 		this.panelBoutons.add(this.btnQuitter);
 
 		this.add(new JPanel(), BorderLayout.NORTH);
@@ -47,42 +46,28 @@ public class PanelAccueil extends JPanel implements ActionListener
 		this.add(new JPanel(), BorderLayout.EAST);
 		this.add(new JPanel(), BorderLayout.SOUTH);
 
-		this.btnLancer.addActionListener(this);
-		this.btnParametre.addActionListener(this);
+		this.btnServeur.addActionListener(this);
+		this.btnClient.addActionListener(this);
 		this.btnQuitter.addActionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent e)
 	{
-		if (e.getSource() == this.btnLancer)
+		if (e.getSource() == this.btnServeur)
 		{
-			if (this.frameAccueil.getCtrl().getServeur() != null)
-			{
-				this.frameAccueil.getCtrl().lancer();
-				this.frameImage = new FrameImage(this.frameAccueil.getCtrl(), this.frameAccueil.getCtrl().getServeur().getGrilleImages());
-				this.btnLancer.setEnabled(false);
-				this.btnParametre.setEnabled(false);
-			}
-			else 
-			{
-				JOptionPane.showMessageDialog(this, "Impossible de lancer, le serveur n'a pas été paramétré.", "Erreur", JOptionPane.ERROR_MESSAGE);
-				return;
-			}
+			this.frameServeur = new FrameServeur(this.frameAccueil.getCtrl());
+			this.frameAccueil.getCtrl().setFrameServeur(frameServeur);
+			this.btnServeur.setEnabled(false);
 		}
 
-		if (e.getSource() == this.btnParametre)
+		if (e.getSource() == this.btnClient)
 		{
-			this.frameParametre = new FrameParametre(this.frameAccueil.getCtrl());
+			this.frameClient = new FrameClient(this.frameAccueil.getCtrl());
 		}
 
 		if (e.getSource() == this.btnQuitter)
 		{
 			System.exit(0);
 		}
-	}
-
-	public FrameImage getFrameImage()
-	{
-		return this.frameImage;
 	}
 }

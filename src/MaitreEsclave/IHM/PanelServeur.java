@@ -12,28 +12,30 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class PanelParametre extends JPanel implements ActionListener
+public class PanelServeur extends JPanel implements ActionListener
 {
-	private FrameParametre frameParametre;
+	private FrameServeur frameServeur;
+	private FrameImage   frameImage;
 
 	private JPanel panelParam;
 
 	private JFileChooser fcImage;
 
-	private JTextField   txtNbLignes;
-	private JTextField   txtNbColonnes;
-	private JTextField   txtAdress;
-	private JTextField   txtPort;
+	private JTextField txtNbLignes;
+	private JTextField txtNbColonnes;
+	private JTextField txtAdress;
+	private JTextField txtPort;
 
 	private JButton btnImage;
-	private JButton btnEnregistrer;
+	private JButton btnLancer;
 
 	private String nomImage;
 
-	public PanelParametre(FrameParametre frameParametre)
+	public PanelServeur(FrameServeur frameServeur)
 	{
-		this.frameParametre   = frameParametre;
-		this.nomImage = null;
+		this.frameServeur = frameServeur;
+		this.frameImage   = null;
+		this.nomImage     = null;
 
 		this.setLayout(new BorderLayout(240, 20));
 
@@ -50,7 +52,7 @@ public class PanelParametre extends JPanel implements ActionListener
 		txtPort      .setBorder(BorderFactory.createCompoundBorder( BorderFactory.createTitledBorder("Port :"              ), txtPort      .getBorder()));
 
 		this.btnImage  = new JButton("Choisir l'image");
-		this.btnEnregistrer = new JButton("Enregistrer");
+		this.btnLancer = new JButton("Lancer");
 
 		this.panelParam.add(this.txtNbLignes);
 		this.panelParam.add(this.txtNbColonnes);
@@ -58,7 +60,7 @@ public class PanelParametre extends JPanel implements ActionListener
 		this.panelParam.add(this.txtPort);
 		this.panelParam.add(new JLabel("Attention l'image ne doit contenir de partie transparent."));
 		this.panelParam.add(this.btnImage);
-		this.panelParam.add(this.btnEnregistrer);
+		this.panelParam.add(this.btnLancer);
 
 		this.add(new JPanel(), BorderLayout.NORTH);
 		this.add(new JPanel(), BorderLayout.WEST);
@@ -72,7 +74,7 @@ public class PanelParametre extends JPanel implements ActionListener
 		this.txtPort.addActionListener(this);
 
 		this.btnImage.addActionListener(this);
-		this.btnEnregistrer.addActionListener(this);
+		this.btnLancer.addActionListener(this);
 	}
 
 	public void actionPerformed(ActionEvent e)
@@ -82,7 +84,7 @@ public class PanelParametre extends JPanel implements ActionListener
 			this.fcImage = new JFileChooser();
 			this.fcImage.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Images", "jpg", "png"));
 
-			int returnVal = this.fcImage.showOpenDialog(this.frameParametre);
+			int returnVal = this.fcImage.showOpenDialog(this.frameServeur);
 
 			if (returnVal == JFileChooser.APPROVE_OPTION)
 			{
@@ -92,7 +94,7 @@ public class PanelParametre extends JPanel implements ActionListener
 			}
 		}
 
-		if (e.getSource() == this.btnEnregistrer)
+		if (e.getSource() == this.btnLancer)
 		{
 			if (this.nomImage == null)
 			{
@@ -115,16 +117,31 @@ public class PanelParametre extends JPanel implements ActionListener
 				return;
 			}
 
-			this.frameParametre.getCtrl().creerServeur
+			this.frameServeur.getCtrl().creerServeur
 			(
-				this.nomImage, 
+				this.nomImage,
 				Integer.parseInt(this.txtNbLignes.getText())  ,
 				Integer.parseInt(this.txtNbColonnes.getText()),
 				this.txtAdress.getText(),
 				Integer.parseInt(this.txtPort      .getText())
 			);
 
-			this.frameParametre.dispose();
+			if (this.frameServeur.getCtrl().getServeur() != null)
+			{
+				this.frameImage = new FrameImage(this.frameServeur.getCtrl(), this.frameServeur.getCtrl().getServeur().getGrilleImages());
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(this, "Impossible de lancer, le serveur n'a pas été paramétré.", "Erreur", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			this.frameServeur.dispose();
 		}
+	}
+
+	public FrameImage getFrameImage()
+	{
+		return this.frameImage;
 	}
 }

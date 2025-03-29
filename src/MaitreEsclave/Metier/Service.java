@@ -19,8 +19,8 @@ public class Service extends Thread
 	public Service(Serveur serveur, DatagramPacket data, BufferedImage image)
 	{
 		this.serveur = serveur;
-		this.data = data;
-		this.image = image;
+		this.data    = data;
+		this.image   = image;
 	}
 
 	@Override

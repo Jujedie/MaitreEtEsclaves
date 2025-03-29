@@ -14,7 +14,7 @@ public class FrameAccueil extends JFrame
 		this.ctrl = ctrl;
 
 		this.setTitle("Accueil");
-		this.setSize(500, 250);
+		this.setSize(500, 300);
 		this.setLocationRelativeTo(this.panelAccueil);
 		this.setResizable(false);
 
@@ -30,10 +30,5 @@ public class FrameAccueil extends JFrame
 	public Controleur getCtrl()
 	{
 		return this.ctrl;
-	}
-
-	public FrameImage getFrameImage()
-	{
-		return this.panelAccueil.getFrameImage();
 	}
 }
