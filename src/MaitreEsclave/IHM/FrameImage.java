@@ -15,9 +15,9 @@ public class FrameImage extends JFrame
 		this.ctrl = ctrl;
 
 		this.setTitle("Image");
-		this.setSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
-		this.setLocationRelativeTo(null);
-		this.setResizable(false);
+		this.setSize(850, 500);
+		this.setLocationRelativeTo(this.panelImage);
+		this.setResizable(true);
 
 		this.panelImage = new PanelImage(this, tabImages);
 
