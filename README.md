@@ -28,5 +28,7 @@ Pour **lancer le client**, il vous faut :
 
 - Appuyer sur le bouton "Se connecter".
 
-*Le serveur marche sur un réseau local, il est donc possible de se connecter
-depuis n'importe quelle machine d'un même réseau dont elle même.*
+**Le serveur marche sur un réseau local, il est donc possible de se connecter
+depuis n'importe quelle machine d'un même réseau (dont elle même).**
+
+*Durant ce projet, nous avons utiliser le socket UDP.*
