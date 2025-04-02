@@ -6,7 +6,7 @@ Pour **lancer l'application**, vous avez le choix entre :
 
 - Faire ./start.sh.
 
-- Utiliser les commande java "java MaitreEsclave.Controleur" dans le dossier "bin".
+- Utiliser les commande java "java MaitreEsclave.Controleur" depuis le dossier "bin".
 
 Un compile.list est présent à la racine pour compiler tout le projet (Le start.sh le fait automatiquement).
 
@@ -28,7 +28,12 @@ Pour **lancer le client**, il vous faut :
 
 - Appuyer sur le bouton "Se connecter".
 
-**Le serveur marche sur un réseau local, il est donc possible de se connecter
-depuis n'importe quelle machine d'un même réseau (dont elle même).**
+Pour **quitter l'application**, il vous faut simplement cliquer sur le bouton "quitter"
+depuis l'accueil ou bien depuis la fenêtre de l'image.
 
-*Durant ce projet, nous avons utiliser le socket UDP.*
+**Durant ce projet, nous avons utiliser le socket UDP.
+De plus, une scroll bar est disponible en plus de pouvoir
+redimensionner la fenêtre de l'image en cas de trop grandes dimensions d'images.**
+
+*Le serveur marche sur un réseau local, il est donc possible de se connecter
+depuis n'importe quelle machine d'un même réseau (dont elle même).*
