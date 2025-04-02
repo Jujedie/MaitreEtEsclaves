@@ -1,0 +1,16 @@
+-d ./bin
+
+./src/MaitreEsclave/Metier/Client.java
+./src/MaitreEsclave/Metier/Serveur.java
+./src/MaitreEsclave/Metier/Service.java
+
+./src/MaitreEsclave/Controleur.java
+
+./src/MaitreEsclave/IHM/PanelImage.java
+./src/MaitreEsclave/IHM/FrameImage.java
+./src/MaitreEsclave/IHM/PanelClient.java
+./src/MaitreEsclave/IHM/FrameClient.java
+./src/MaitreEsclave/IHM/PanelServeur.java
+./src/MaitreEsclave/IHM/FrameServeur.java
+./src/MaitreEsclave/IHM/PanelAccueil.java
+./src/MaitreEsclave/IHM/FrameAccueil.java
